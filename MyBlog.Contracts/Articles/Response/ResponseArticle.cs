@@ -1,4 +1,4 @@
-﻿namespace MyBlog.Application.Services
+﻿namespace MyBlog.Contracts.Articles.Response
 {
     public record ResponseArticle(
         Guid Id,
@@ -10,5 +10,5 @@
         DateTimeOffset AddedDate,
         string AutorName
         );
-    
+
 }

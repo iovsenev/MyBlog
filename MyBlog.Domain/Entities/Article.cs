@@ -13,9 +13,7 @@ namespace MyBlog.Domain.Entities
             string text, 
             DateTimeOffset addedDate,
             int likes, 
-            int dislikes/*, 
-            Image? mainImage, 
-            IReadOnlyList<Image>? images,
+            int dislikes/*,
             AppUser author*/
             )
         {
@@ -26,8 +24,6 @@ namespace MyBlog.Domain.Entities
             AddedDate = addedDate;
             Likes = likes;
             Dislikes = dislikes;
-            //MainImage = mainImage;
-            //Images = images;
             //Author = author;
         }
 
@@ -38,8 +34,6 @@ namespace MyBlog.Domain.Entities
         public DateTimeOffset AddedDate { get; set; }
         public int Likes { get; set; }
         public int Dislikes { get; set; }
-        //public Image? MainImage { get; set; }
-        //public IReadOnlyList<Image>? Images { get; set; }
 
         //public AppUser Author { get; set; }
 
@@ -65,7 +59,7 @@ namespace MyBlog.Domain.Entities
             if (string.IsNullOrEmpty(text.Trim()))
                 return Errors.General.InValid(text);
 
-            var addedDate = DateTimeOffset.Now;
+            var addedDate = DateTimeOffset.UtcNow;
 
             return new Article(id, title, description, text, addedDate, 0, 0);
         }

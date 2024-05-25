@@ -1,7 +1,6 @@
 ﻿using MyBlog.Domain.Entities;
-using MyBlog.Persistence.Repositories;
 
-namespace MyBlog.Application.Interfaces
+namespace MyBlog.Application.Interfaces.DataAccess
 {
     public interface IArticleRepository : IRepository<Article>
     {

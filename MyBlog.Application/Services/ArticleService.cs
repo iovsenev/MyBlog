@@ -1,11 +1,15 @@
 ﻿using CSharpFunctionalExtensions;
-using MyBlog.Application.Interfaces;
+using MyBlog.Application.Interfaces.DataAccess;
+using MyBlog.Application.Interfaces.Services;
+using MyBlog.Application.Mappings;
+using MyBlog.Contracts.Articles.Requests;
+using MyBlog.Contracts.Articles.Response;
 using MyBlog.Domain.Common;
 using MyBlog.Domain.Entities;
 
 namespace MyBlog.Application.Services
 {
-    public class ArticleService
+    public class ArticleService : IArticleService
     {
         private readonly IArticleRepository _repository;
 
@@ -43,6 +47,21 @@ namespace MyBlog.Application.Services
             if (result.IsFailure)
                 return result.Error;
 
+            return MappingExtension.ArticleToResponseArticle(result.Value);
+        }
+
+        public async Task<Result<List<ResponseArticle>, Error>> GetAll(
+            GetArticlesByPageRequest request,
+            CancellationToken ct = default)
+        {
+            var result = await _repository.GetAll(request.PageIndex, request.SizePage, ct);
+
+            if (result.IsFailure)
+                return result.Error;
+
+            var list = result.Value.Select(a => a.ArticleToResponseArticle()).ToList();
+
+            return list;
         }
     }
 }

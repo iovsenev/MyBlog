@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MyBlog.Application.Interfaces;
+using MyBlog.Application.Interfaces.DataAccess;
 using MyBlog.Persistence.DbContexts;
 using MyBlog.Persistence.Repositories;
 

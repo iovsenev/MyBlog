@@ -1,4 +1,4 @@
-﻿namespace MyBlog.Application.Services
+﻿namespace MyBlog.Contracts.Articles.Requests
 {
     public record CreateArticleRequest(
         string Title,

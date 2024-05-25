@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using MyBlog.Domain.Common;
 using MyBlog.Domain.Entities;
 using MyBlog.Persistence.DbContexts;
-using MyBlog.Application.Interfaces;
+using MyBlog.Application.Interfaces.DataAccess;
 
 namespace MyBlog.Persistence.Repositories
 {
@@ -52,10 +52,12 @@ namespace MyBlog.Persistence.Repositories
             return entity;
         }
 
-        public async Task<Result<IReadOnlyList<Article>, Error>> GetAll(CancellationToken ct = default)
+        public async Task<Result<IReadOnlyList<Article>, Error>> GetAll(int page, int sizePage, CancellationToken ct = default)
         {
             return await _context.Articles
                 .AsNoTracking()
+                .Skip((page - 1) * sizePage)
+                .Take(sizePage)
                 .ToListAsync(ct);
         }
 
