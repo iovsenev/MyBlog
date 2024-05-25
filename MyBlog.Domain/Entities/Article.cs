@@ -12,7 +12,8 @@ namespace MyBlog.Domain.Entities
             string description,
             string text, 
             DateTimeOffset addedDate,
-            int likes, int dislikes/*, 
+            int likes, 
+            int dislikes/*, 
             Image? mainImage, 
             IReadOnlyList<Image>? images,
             AppUser author*/
@@ -47,23 +48,23 @@ namespace MyBlog.Domain.Entities
         //public IReadOnlyList<Tag> Tags { get; set; }
 
 
-        public Result<Article, Error> Create(
-            Guid id,
+        public static Result<Article, Error> Create(
             string title,
             string description,
             string text
-            //Image? mainImage,
-            //IReadOnlyList<Image>? images
             )
         {
-            if (id.Equals(Guid.Empty))
-                return Errors.General.InValid(id);
+            var id = Guid.NewGuid();
+
             if (string.IsNullOrEmpty(title.Trim()))
                 return Errors.General.InValid(title);
+
             if (string.IsNullOrEmpty(description.Trim()))
                 return Errors.General.InValid(description);
+
             if (string.IsNullOrEmpty(text.Trim()))
                 return Errors.General.InValid(text);
+
             var addedDate = DateTimeOffset.Now;
 
             return new Article(id, title, description, text, addedDate, 0, 0);
