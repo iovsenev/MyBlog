@@ -1,23 +1,22 @@
-﻿using MyBlog.Contracts.Articles.Response;
+﻿using MyBlog.Contracts.Articles.DTOS;
 using MyBlog.Domain.Entities;
 
-namespace MyBlog.Application.Mappings
-{
-    public static class MappingExtension
-    {
-        public static ResponseArticle ArticleToResponseArticle(this Article article)
-        {
-            var response = new ResponseArticle(
-                article.Id, 
-                article.Title,
-                article.Description,
-                article.Text,
-                article.Likes,
-                article.Dislikes,
-                article.AddedDate,
-                "author");
+namespace MyBlog.Application.Mappings;
 
-            return response;
-        }
+public static class MappingExtension
+{
+    public static ArticleDto ToArticleDto(this Article article)
+    {
+        var response = new ArticleDto(
+            article.Id, 
+            article.Title,
+            article.Description,
+            article.Text,
+            article.AddedDate,
+            article.Likes,
+            article.Dislikes,
+            "author");
+
+        return response;
     }
 }

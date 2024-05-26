@@ -3,15 +3,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34902.65
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBlog.Domain", "MyBlog.Domain\MyBlog.Domain.csproj", "{EB435D09-8F26-4A65-A2D3-017E89CA3340}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBlog.Domain", "MyBlog.Domain\MyBlog.Domain.csproj", "{EB435D09-8F26-4A65-A2D3-017E89CA3340}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBlog.Application", "MyBlog.Application\MyBlog.Application.csproj", "{69A4F99B-DF3B-4DE3-9954-D0F5FB719AEF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBlog.Application", "MyBlog.Application\MyBlog.Application.csproj", "{69A4F99B-DF3B-4DE3-9954-D0F5FB719AEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBlog.Persistence", "MyBlog.Persistence\MyBlog.Persistence.csproj", "{C8987114-C522-4D42-8830-D5CF5BF55417}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBlog.Persistence", "MyBlog.Persistence\MyBlog.Persistence.csproj", "{C8987114-C522-4D42-8830-D5CF5BF55417}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBlog.Contracts", "MyBlog.Contracts\MyBlog.Contracts.csproj", "{33577E2B-4C78-48D5-9D3D-A13C5F0A3337}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBlog.Contracts", "MyBlog.Contracts\MyBlog.Contracts.csproj", "{33577E2B-4C78-48D5-9D3D-A13C5F0A3337}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBlog.Api", "MyBlog.Api\MyBlog.Api.csproj", "{C50D70F0-CB56-42EB-9834-D63FA8E44898}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyBlog.Api", "MyBlog.Api\MyBlog.Api.csproj", "{C50D70F0-CB56-42EB-9834-D63FA8E44898}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{408EE108-C304-4F1B-B21E-04564DBBCBB3}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -9,9 +9,9 @@ namespace MyBlog.Persistence.Repositories
 {
     public class ArticleRepository : IArticleRepository
     {
-        private readonly AppDbContext _context;
+        private readonly AppWriteDbContext _context;
 
-        public ArticleRepository(AppDbContext context)
+        public ArticleRepository(AppWriteDbContext context)
         {
             _context = context;
         }

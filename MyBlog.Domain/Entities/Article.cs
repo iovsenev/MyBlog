@@ -1,67 +1,70 @@
 ﻿using CSharpFunctionalExtensions;
 using MyBlog.Domain.Common;
 
-namespace MyBlog.Domain.Entities
+namespace MyBlog.Domain.Entities;
+
+public class Article
 {
-    public class Article
+    private Article() { }
+    private Article(
+        Guid id,
+        string title,
+        string description,
+        string text,
+        DateTimeOffset addedDate,
+        int likes,
+        int dislikes/*,
+        AppUser author*/
+        )
     {
-        private Article () { }
-        private Article(
-            Guid id, 
-            string title,
-            string description,
-            string text, 
-            DateTimeOffset addedDate,
-            int likes, 
-            int dislikes/*,
-            AppUser author*/
-            )
-        {
-            Id = id;
-            Title = title;
-            Description = description;
-            Text = text;
-            AddedDate = addedDate;
-            Likes = likes;
-            Dislikes = dislikes;
-            //Author = author;
-        }
+        Id = id;
+        Title = title;
+        Description = description;
+        Text = text;
+        AddedDate = addedDate;
+        Likes = likes;
+        Dislikes = dislikes;
+        //Author = author;
+    }
 
-        public Guid Id { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public string Text { get; set; }
-        public DateTimeOffset AddedDate { get; set; }
-        public int Likes { get; set; }
-        public int Dislikes { get; set; }
-
-        //public AppUser Author { get; set; }
-
-        //public IReadOnlyList<Comment> Comments { get; set; }
-        
-        //public IReadOnlyList<Tag> Tags { get; set; }
+    public Guid Id { get; private set; }
+    public string Title { get; private set; }
+    public string Description { get; private set; }
+    public string Text { get; private set; }
+    public DateTimeOffset AddedDate { get; private set; }
+    public int Likes { get; private set; }
+    public int Dislikes { get; private set; }
 
 
-        public static Result<Article, Error> Create(
-            string title,
-            string description,
-            string text
-            )
-        {
-            var id = Guid.NewGuid();
+    public IReadOnlyList<Image> _images = [];
+    public IReadOnlyList<Image> Images => _images;
 
-            if (string.IsNullOrEmpty(title.Trim()))
-                return Errors.General.InValid(title);
+    //public AppUser Author { get; set; }
 
-            if (string.IsNullOrEmpty(description.Trim()))
-                return Errors.General.InValid(description);
+    //public IReadOnlyList<Comment> Comments { get; set; }
 
-            if (string.IsNullOrEmpty(text.Trim()))
-                return Errors.General.InValid(text);
+    //public IReadOnlyList<Tag> Tags { get; set; }
 
-            var addedDate = DateTimeOffset.UtcNow;
 
-            return new Article(id, title, description, text, addedDate, 0, 0);
-        }
+    public static Result<Article, Error> Create(
+        string title,
+        string description,
+        string text
+        )
+    {
+        var id = Guid.NewGuid();
+
+        if (string.IsNullOrEmpty(title.Trim()))
+            return Errors.General.InValid(title);
+
+        if (string.IsNullOrEmpty(description.Trim()))
+            return Errors.General.InValid(description);
+
+        if (string.IsNullOrEmpty(text.Trim()))
+            return Errors.General.InValid(text);
+
+        var addedDate = DateTimeOffset.UtcNow;
+
+        return new Article(id, title, description, text, addedDate, 0, 0);
     }
 }

@@ -5,21 +5,17 @@ using MyBlog.Application.Interfaces.DataAccess;
 using MyBlog.Persistence.DbContexts;
 using MyBlog.Persistence.Repositories;
 
-namespace MyBlog.Persistence
+namespace MyBlog.Persistence;
+
+public static class DependencyInjection
 {
-    public static class DependencyInjection
+    public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
     {
-        public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
-        {
-            services.AddDbContext<AppDbContext>(options =>
-            {
-                options.UseNpgsql(configuration.GetConnectionString(nameof(AppDbContext)));
+        services.AddSingleton<AppWriteDbContext>();
+        services.AddSingleton<AppReadDbContext>();
 
-            });
+        services.AddScoped<IArticleRepository, ArticleRepository>();
 
-            services.AddScoped<IArticleRepository, ArticleRepository>();
-
-            return services;
-        }
+        return services;
     }
 }

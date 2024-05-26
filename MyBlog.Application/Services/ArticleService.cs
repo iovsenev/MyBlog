@@ -2,6 +2,7 @@
 using MyBlog.Application.Interfaces.DataAccess;
 using MyBlog.Application.Interfaces.Services;
 using MyBlog.Application.Mappings;
+using MyBlog.Contracts.Articles.DTOS;
 using MyBlog.Contracts.Articles.Requests;
 using MyBlog.Contracts.Articles.Response;
 using MyBlog.Domain.Common;
@@ -38,7 +39,7 @@ namespace MyBlog.Application.Services
             return await _repository.Delete(id, ct);
         }
 
-        public async Task<Result<ResponseArticle, Error>> GetById(Guid id, CancellationToken ct = default)
+        public async Task<Result<ArticleDto, Error>> GetById(Guid id, CancellationToken ct = default)
         {
             if (id.Equals(Guid.Empty))
                 return Errors.General.InValid(id);
@@ -47,10 +48,10 @@ namespace MyBlog.Application.Services
             if (result.IsFailure)
                 return result.Error;
 
-            return MappingExtension.ArticleToResponseArticle(result.Value);
+            return MappingExtension.ToArticleDto(result.Value);
         }
 
-        public async Task<Result<List<ResponseArticle>, Error>> GetAll(
+        public async Task<Result<ResponseArticle, Error>> GetAll(
             GetArticlesByPageRequest request,
             CancellationToken ct = default)
         {
@@ -59,9 +60,9 @@ namespace MyBlog.Application.Services
             if (result.IsFailure)
                 return result.Error;
 
-            var list = result.Value.Select(a => a.ArticleToResponseArticle()).ToList();
+            var list = result.Value.Select(a => a.ToArticleDto()).ToList();
 
-            return list;
+            return new ResponseArticle(list);
         }
     }
 }

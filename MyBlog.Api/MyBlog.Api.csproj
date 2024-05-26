@@ -18,4 +18,12 @@
     <ProjectReference Include="..\MyBlog.Persistence\MyBlog.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Remove="D:\projects\MyBlog\MyBlog.Api\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="D:\projects\MyBlog\MyBlog.Api\.editorconfig" />
+  </ItemGroup>
+
 </Project>

@@ -18,4 +18,12 @@
     <PackageReference Include="SharpGrip.FluentValidation.AutoValidation.Mvc" Version="1.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Remove="D:\projects\MyBlog\MyBlog.Application\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="D:\projects\MyBlog\MyBlog.Application\.editorconfig" />
+  </ItemGroup>
+
 </Project>

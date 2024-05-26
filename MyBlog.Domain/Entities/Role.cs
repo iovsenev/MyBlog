@@ -1,10 +1,8 @@
-﻿namespace MyBlog.Domain.Entities
-{
-    public class Role
-    {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
+﻿namespace MyBlog.Domain.Entities;
 
-        public IReadOnlyList<AppUser> Users { get; set; }
-    }
+public class Role
+{
+    public Guid Id { get; set; }
+    public string Name { get; set; }
+
 }
