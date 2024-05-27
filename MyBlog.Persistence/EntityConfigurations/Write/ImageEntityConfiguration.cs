@@ -8,7 +8,7 @@ public class ImageEntityConfiguration : IEntityTypeConfiguration<Image>
 {
     public void Configure(EntityTypeBuilder<Image> builder)
     {
-        builder.ToTable("articles");
+        builder.ToTable("images");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id)
             .IsRequired()
@@ -20,5 +20,8 @@ public class ImageEntityConfiguration : IEntityTypeConfiguration<Image>
             .IsRequired()
             .HasColumnName("is_main")
             .HasDefaultValue(false);
+
+        builder.HasOne(i => i.Article)
+            .WithMany(a => a.Images);
     }
 }

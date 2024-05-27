@@ -1,13 +1,13 @@
-﻿namespace MyBlog.Application.Halpers
+﻿namespace MyBlog.Application.Helpers
 {
-    public class Envelope
+    public class RequestFormat
     {
 
         public object? Result { get; }
         public Dictionary<string, string[]>? Errors { get; }
         public DateTime TimeGenerated { get; }
 
-        private Envelope(object? result,
+        private RequestFormat(object? result,
             Dictionary<string, string[]>? errors)
         {
             Result = result;
@@ -15,12 +15,12 @@
             TimeGenerated = DateTime.Now;
         }
 
-        public static Envelope Ok(object? result)
+        public static RequestFormat Ok(object? result)
         {
             return new(result, null);
         }
 
-        public static Envelope Error(Dictionary<string, string[]>? errors)
+        public static RequestFormat Error(Dictionary<string, string[]>? errors)
         {
             return new(null, errors);
         }

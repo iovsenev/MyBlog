@@ -2,6 +2,7 @@
 using MyBlog.Api.Controllers.Common;
 using MyBlog.Application.Interfaces.Services;
 using MyBlog.Contracts.Articles.Requests;
+using MyBlog.Persistence.Queries;
 
 namespace MyBlog.Api.Controllers;
 
@@ -15,9 +16,12 @@ public class ArticleController : AppBaseController
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAll([FromQuery]GetArticlesByPageRequest request,  CancellationToken ct = default)
+    public async Task<IActionResult> GetAll(
+        [FromServices] GetArticleQuery query,
+        [FromQuery]GetAllArticlesByPageRequest request, 
+        CancellationToken ct = default)
     {
-        var result = await _articleService.GetAll(request, ct);
+        var result = await query.Handle(request, ct);
 
         return result.IsFailure ? BadRequest(result.Error) : Ok(result.Value);
     }

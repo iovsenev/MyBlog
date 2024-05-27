@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MyBlog.Application.Halpers;
+using MyBlog.Application.Helpers;
 
 namespace MyBlog.Api.Controllers.Common
 {
@@ -9,14 +9,14 @@ namespace MyBlog.Api.Controllers.Common
     {
         protected new IActionResult Ok(object? result = null)
         {
-            var envelope = Envelope.Ok(result);
+            var envelope = RequestFormat.Ok(result);
 
             return base.Ok(envelope);
         }
 
         protected new IActionResult BadRequest(Dictionary<string, string[]>? errors = null)
         {
-            var envelope = Envelope.Error(errors);
+            var envelope = RequestFormat.Error(errors);
 
             return base.BadRequest(envelope);
         }

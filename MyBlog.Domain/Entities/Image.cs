@@ -14,4 +14,6 @@ public class Image
     public Guid Id { get; private set; }
     public string Path { get; private set; }
     public bool IsMain { get; private set; }
+
+    public Article Article { get; private set; }
 }

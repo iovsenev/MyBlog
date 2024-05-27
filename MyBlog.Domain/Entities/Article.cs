@@ -13,8 +13,8 @@ public class Article
         string text,
         DateTimeOffset addedDate,
         int likes,
-        int dislikes/*,
-        AppUser author*/
+        int dislikes,
+        AppUser author
         )
     {
         Id = id;
@@ -24,7 +24,7 @@ public class Article
         AddedDate = addedDate;
         Likes = likes;
         Dislikes = dislikes;
-        //Author = author;
+        Author = author;
     }
 
     public Guid Id { get; private set; }
@@ -39,14 +39,16 @@ public class Article
     public IReadOnlyList<Image> _images = [];
     public IReadOnlyList<Image> Images => _images;
 
-    //public AppUser Author { get; set; }
+    public AppUser Author { get; set; }
 
-    //public IReadOnlyList<Comment> Comments { get; set; }
+    private IReadOnlyList<Comment> _comments = [];
+    public IReadOnlyList<Comment> Comments => _comments;
 
     //public IReadOnlyList<Tag> Tags { get; set; }
 
 
     public static Result<Article, Error> Create(
+        AppUser user,
         string title,
         string description,
         string text
@@ -65,6 +67,6 @@ public class Article
 
         var addedDate = DateTimeOffset.UtcNow;
 
-        return new Article(id, title, description, text, addedDate, 0, 0);
+        return new Article(id, title, description, text, addedDate, 0, 0, user);
     }
 }

@@ -1,4 +1,8 @@
-﻿namespace MyBlog.Contracts.Articles.DTOS;
+﻿using MyBlog.Contracts.AppUsers.DTOS;
+using MyBlog.Contracts.Comments.DTOS;
+using MyBlog.Contracts.Images.DTOS;
+
+namespace MyBlog.Contracts.Articles.DTOS;
 
 public record ArticleDto(
     Guid Id,
@@ -8,6 +12,7 @@ public record ArticleDto(
     DateTimeOffset AddedDate,
     int Likes,
     int Dislikes,
-    string Author,
-    List<ImageDto> Images
+    AppUserDto Author,
+    IEnumerable<ImageDto> Images,
+    IEnumerable<CommentDto> Comments
     );

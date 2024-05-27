@@ -1,7 +1,6 @@
 ﻿using CSharpFunctionalExtensions;
 using MyBlog.Application.Interfaces.DataAccess;
 using MyBlog.Application.Interfaces.Services;
-using MyBlog.Application.Mappings;
 using MyBlog.Contracts.Articles.DTOS;
 using MyBlog.Contracts.Articles.Requests;
 using MyBlog.Contracts.Articles.Response;
@@ -21,14 +20,16 @@ namespace MyBlog.Application.Services
 
         public async Task<Result> Create(CreateArticleRequest request, CancellationToken ct = default)
         {
-            var resultArticle = Article.Create(request.Title, request.Description, request.Text);
+            //var resultArticle = Article.Create(request.Title, request.Description, request.Text);
 
-            if (resultArticle.IsFailure)
-                return Result.Failure(resultArticle.Error.Serialize());
+            //if (resultArticle.IsFailure)
+            //    return Result.Failure(resultArticle.Error.Serialize());
 
-            var result = await _repository.Create(resultArticle.Value, ct);
+            //var result = await _repository.Create(resultArticle.Value, ct);
 
-            return result;
+            //return result;
+
+            return Result.Success();
         }
 
         public async Task<Result> Delete(Guid id, CancellationToken ct = default)
@@ -39,7 +40,7 @@ namespace MyBlog.Application.Services
             return await _repository.Delete(id, ct);
         }
 
-        public async Task<Result<ArticleDto, Error>> GetById(Guid id, CancellationToken ct = default)
+        public async Task<Result<Article, Error>> GetById(Guid id, CancellationToken ct = default)
         {
             if (id.Equals(Guid.Empty))
                 return Errors.General.InValid(id);
@@ -48,11 +49,11 @@ namespace MyBlog.Application.Services
             if (result.IsFailure)
                 return result.Error;
 
-            return MappingExtension.ToArticleDto(result.Value);
+            return result.Value;
         }
 
-        public async Task<Result<ResponseArticle, Error>> GetAll(
-            GetArticlesByPageRequest request,
+        public async Task<Result<IEnumerable <Article> , Error>> GetAll(
+            GetAllArticlesByPageRequest request,
             CancellationToken ct = default)
         {
             var result = await _repository.GetAll(request.PageIndex, request.SizePage, ct);
@@ -60,9 +61,7 @@ namespace MyBlog.Application.Services
             if (result.IsFailure)
                 return result.Error;
 
-            var list = result.Value.Select(a => a.ToArticleDto()).ToList();
-
-            return new ResponseArticle(list);
+            return result.Value.ToList();
         }
     }
 }

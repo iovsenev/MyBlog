@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using MyBlog.Application.Halpers;
+using MyBlog.Application.Helpers;
 using SharpGrip.FluentValidation.AutoValidation.Mvc.Results;
 
 namespace MyBlog.Application.Validators
@@ -16,7 +16,7 @@ namespace MyBlog.Application.Validators
 
             var errors = validationProblemDetails.Errors.ToDictionary();
 
-            var envelope = Envelope.Error(errors);
+            var envelope = RequestFormat.Error(errors);
 
             return new BadRequestObjectResult(envelope);
         }

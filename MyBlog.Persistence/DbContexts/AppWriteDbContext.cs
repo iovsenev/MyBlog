@@ -15,6 +15,7 @@ public class AppWriteDbContext : DbContext
         _configuration = configuration;
     }
     public DbSet<Article> Articles => Set<Article>();
+    public DbSet<AppUser> Users => Set<AppUser>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

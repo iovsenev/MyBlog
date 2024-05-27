@@ -9,29 +9,40 @@ public class ArticleEntityConfiguration : IEntityTypeConfiguration<Article>
     public void Configure(EntityTypeBuilder<Article> builder)
     {
         builder.ToTable("articles");
-        builder.HasKey(x => x.Id);
-        builder.Property(x => x.Id)
-            .IsRequired()
+
+        builder.HasKey(a => a.Id);
+
+        builder.Property(a => a.Id)
             .HasColumnName("id");
-        builder.Property(x => x.Title)
+        builder.Property(a => a.Title)
             .IsRequired()
             .HasColumnName("title");
-        builder.Property(x => x.Description)
+        builder.Property(a => a.Description)
             .IsRequired()
             .HasColumnName("description");
-        builder.Property(x => x.Text)
+        builder.Property(a => a.Text)
             .HasColumnName("text")
             .IsRequired();
-        builder.Property(x => x.AddedDate)
+        builder.Property(a => a.AddedDate)
             .HasColumnName("added_date");
-        builder.Property(x => x.Likes)
+        builder.Property(a => a.Likes)
             .HasColumnName("likes")
             .HasDefaultValue(0);
-        builder.Property(x => x.Dislikes)
+        builder.Property(a => a.Dislikes)
             .HasColumnName("dislikes")
             .HasDefaultValue(0);
-        builder.HasMany(x => x.Images)
-            .WithOne();
+
+        builder.HasMany(a => a.Comments)
+            .WithOne()
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasMany(a => a.Images)
+            .WithOne(i => i.Article)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne(a => a.Author)
+            .WithMany(U => U.Articles)
+            .HasConstraintName("author_id");
 
     }
 }
