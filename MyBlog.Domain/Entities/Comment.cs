@@ -1,4 +1,6 @@
-﻿namespace MyBlog.Domain.Entities;
+﻿using MyBlog.Contracts.Comments.Requests;
+
+namespace MyBlog.Domain.Entities;
 
 public class Comment
 {

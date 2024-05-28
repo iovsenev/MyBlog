@@ -2,9 +2,9 @@
 using MyBlog.Contracts.Comments.DTOS;
 using MyBlog.Contracts.Images.DTOS;
 
-namespace MyBlog.Contracts.Articles.DTOS;
+namespace MyBlog.Application.Articles.Dtos;
 
-public record ArticleDto(
+public record GetArticleDto(
     Guid Id,
     string Title,
     string Description,

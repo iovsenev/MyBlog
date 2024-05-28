@@ -1,12 +1,13 @@
 ﻿using FluentValidation;
-using MyBlog.Contracts.Articles.Requests;
 
-namespace MyBlog.Application.Validators.Article
+namespace MyBlog.Application.Articles.Command.Create
 {
     public class CreateArticleRequestValidator : AbstractValidator<CreateArticleRequest>
     {
         public CreateArticleRequestValidator()
         {
+            RuleFor(x=> x.AuthorId)
+                .NotEqual(Guid.Empty);
             RuleFor(x => x.Title)
                 .NotEmpty()
                 .NotNull();

@@ -1,35 +1,21 @@
 ﻿using CSharpFunctionalExtensions;
+using MyBlog.Application.Articles.Command.Create;
+using MyBlog.Application.Articles.Queries.GetArticles;
 using MyBlog.Application.Interfaces.DataAccess;
 using MyBlog.Application.Interfaces.Services;
 using MyBlog.Contracts.Articles.DTOS;
-using MyBlog.Contracts.Articles.Requests;
-using MyBlog.Contracts.Articles.Response;
 using MyBlog.Domain.Common;
 using MyBlog.Domain.Entities;
 
 namespace MyBlog.Application.Services
 {
-    public class ArticleService : IArticleService
+    public class ArticleService 
     {
         private readonly IArticleRepository _repository;
 
         public ArticleService(IArticleRepository repository)
         {
             _repository = repository;
-        }
-
-        public async Task<Result> Create(CreateArticleRequest request, CancellationToken ct = default)
-        {
-            //var resultArticle = Article.Create(request.Title, request.Description, request.Text);
-
-            //if (resultArticle.IsFailure)
-            //    return Result.Failure(resultArticle.Error.Serialize());
-
-            //var result = await _repository.Create(resultArticle.Value, ct);
-
-            //return result;
-
-            return Result.Success();
         }
 
         public async Task<Result> Delete(Guid id, CancellationToken ct = default)
@@ -53,7 +39,7 @@ namespace MyBlog.Application.Services
         }
 
         public async Task<Result<IEnumerable <Article> , Error>> GetAll(
-            GetAllArticlesByPageRequest request,
+            GetAllArticlesRequest request,
             CancellationToken ct = default)
         {
             var result = await _repository.GetAll(request.PageIndex, request.SizePage, ct);

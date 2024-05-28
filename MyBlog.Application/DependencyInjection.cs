@@ -1,10 +1,11 @@
-﻿using FluentValidation;
+﻿using CSharpFunctionalExtensions;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
+using MyBlog.Application.Articles.Command.Create;
+using MyBlog.Application.Articles.Queries.GetArticles;
 using MyBlog.Application.Interfaces.Services;
-using MyBlog.Application.Services;
 using MyBlog.Application.Validators;
-using MyBlog.Application.Validators.Article;
-using MyBlog.Contracts.Articles.Requests;
+using MyBlog.Domain.Common;
 using SharpGrip.FluentValidation.AutoValidation.Mvc.Extensions;
 
 namespace MyBlog.Application
@@ -13,8 +14,8 @@ namespace MyBlog.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-            services.AddScoped<IArticleService, ArticleService>();
-
+            services.AddScoped<IRequestHandler<GetAllArticleResponse>, 
+                GetAllArticleQueryHandler>();
             services.AddValidatorsFromAssembly(typeof(CreateArticleRequestValidator).Assembly);
             services.AddFluentValidationAutoValidation(configuration =>
             {

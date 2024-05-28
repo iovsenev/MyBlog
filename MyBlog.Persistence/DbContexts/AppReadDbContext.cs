@@ -1,12 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using MyBlog.Application.Interfaces.DataAccess;
 using MyBlog.Contracts.Articles.DTOS;
 using MyBlog.Persistence.EntityConfigurations.Read;
 
 namespace MyBlog.Persistence.DbContexts;
 
-public class AppReadDbContext : DbContext
+public class AppReadDbContext : DbContext, IReadDbContext
 {
     private readonly IConfiguration _configuration;
 

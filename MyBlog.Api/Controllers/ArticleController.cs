@@ -1,24 +1,24 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CSharpFunctionalExtensions;
+using Microsoft.AspNetCore.Mvc;
 using MyBlog.Api.Controllers.Common;
+using MyBlog.Application.Articles.Command.Create;
+using MyBlog.Application.Articles.Queries.GetArticles;
 using MyBlog.Application.Interfaces.Services;
-using MyBlog.Contracts.Articles.Requests;
-using MyBlog.Persistence.Queries;
 
 namespace MyBlog.Api.Controllers;
 
 public class ArticleController : AppBaseController
 {
-    private readonly IArticleService _articleService;
 
-    public ArticleController(IArticleService articleService)
+    public ArticleController()
     {
-        _articleService = articleService;
+        
     }
 
     [HttpGet]
     public async Task<IActionResult> GetAll(
-        [FromServices] GetArticleQuery query,
-        [FromQuery]GetAllArticlesByPageRequest request, 
+        [FromServices] IRequestHandler<GetAllArticleResponse> query,
+        [FromQuery]GetAllArticlesRequest request, 
         CancellationToken ct = default)
     {
         var result = await query.Handle(request, ct);
@@ -28,6 +28,8 @@ public class ArticleController : AppBaseController
 
     [HttpPost]
     public async Task<IActionResult> Create(
+        [FromServices]
+        IMediator mediator,
         [FromBody] 
         CreateArticleRequest request, 
         CancellationToken ct = default)

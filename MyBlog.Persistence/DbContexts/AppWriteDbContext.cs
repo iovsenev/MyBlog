@@ -1,12 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using MyBlog.Application.Interfaces.DataAccess;
 using MyBlog.Domain.Entities;
 using MyBlog.Persistence.EntityConfigurations.Write;
 
 namespace MyBlog.Persistence.DbContexts;
 
-public class AppWriteDbContext : DbContext
+public class AppWriteDbContext : DbContext, IWriteDbContext
 {
     private readonly IConfiguration _configuration;
 
@@ -14,8 +15,8 @@ public class AppWriteDbContext : DbContext
     {
         _configuration = configuration;
     }
-    public DbSet<Article> Articles => Set<Article>();
-    public DbSet<AppUser> Users => Set<AppUser>();
+    public DbSet<Article> Articles { get; set; }
+    public DbSet<AppUser> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
