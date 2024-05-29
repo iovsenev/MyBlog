@@ -7,8 +7,8 @@ namespace MyBlog.Domain.Entities;
 
 public class AppUser
 {
-    private readonly DateTime minDate = new DateTime(1920, 1, 1);
-    private readonly DateTime maxDate = DateTime.UtcNow;
+    private static readonly DateTime minDate = new DateTime(1920, 1, 1);
+    private static readonly DateTime maxDate = DateTime.UtcNow;
     private AppUser() { }
 
     private AppUser(
@@ -57,7 +57,7 @@ public class AppUser
     private IReadOnlyList<Comment> _comments = [];
     public IReadOnlyList<Comment> Comments => _comments;
 
-    public Result<AppUser, Error> Create(
+    public static Result<AppUser, Error> Create(
         string userName,
         string passwordHash,
         string emailInput,

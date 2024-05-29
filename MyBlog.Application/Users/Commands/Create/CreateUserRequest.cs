@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MyBlog.Application.Interfaces.Services;
 
-namespace MyBlog.Application.Users.Commands.Create
-{
-    internal class CreateUserRequest
-    {
-    }
-}
+namespace MyBlog.Application.Users.Commands.Create;
+
+public record CreateUserRequest(
+        string userName,
+        string passwordHash,
+        string emailInput,
+        string phoneInput,
+        string firstName,
+        string lastName,
+        string secondName,
+        DateTime birthDate): IRequest<Guid>;
