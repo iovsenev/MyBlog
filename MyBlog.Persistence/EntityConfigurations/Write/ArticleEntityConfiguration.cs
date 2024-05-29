@@ -36,6 +36,10 @@ public class ArticleEntityConfiguration : IEntityTypeConfiguration<Article>
             .WithOne()
             .OnDelete(DeleteBehavior.Cascade);
 
+        builder.HasMany(a => a.Images)
+            .WithOne(i => i.Article)
+            .OnDelete(DeleteBehavior.Cascade);
+
         builder.HasOne(a => a.Author)
             .WithMany(U => U.Articles)
             .HasConstraintName("author_id");

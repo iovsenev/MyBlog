@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace MyBlog.Domain.Entities;
+﻿namespace MyBlog.Domain.Entities;
 
 public class Comment
 {
@@ -11,14 +9,17 @@ public class Comment
         string text, 
         int likes, 
         int dislikes, 
-        DateTimeOffset addedDate
-        )
+        DateTimeOffset addedDate, 
+        AppUser author, 
+        Article article)
     {
         this.id = id;
         Text = text;
         Likes = likes;
         Dislikes = dislikes;
         AddedDate = addedDate;
+        Author = author;
+        Article = article;
     }
 
 
@@ -28,17 +29,14 @@ public class Comment
     public int Dislikes { get; private set; }
     public DateTimeOffset AddedDate { get; private set; }
 
-    public Guid AutorId {  get; private set; }
-    [ForeignKey(nameof(AutorId))]
+
     public AppUser Author { get; private set; }
 
-    public Guid ArticleId { get; private set; }
-    [ForeignKey(nameof(ArticleId))]
     public Article Article { get; private set; }
 
     public static Comment Create(
-        Guid author,
-        Guid article
+        AppUser author,
+        Article article
         )
     { return new Comment(); }
 }

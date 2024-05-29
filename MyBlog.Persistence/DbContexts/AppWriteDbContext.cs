@@ -15,7 +15,6 @@ public class AppWriteDbContext : DbContext, IWriteDbContext
     {
         _configuration = configuration;
     }
-
     public DbSet<Article> Articles { get; set; }
     public DbSet<AppUser> Users { get; set; }
 

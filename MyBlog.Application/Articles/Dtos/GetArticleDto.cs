@@ -16,5 +16,6 @@ public class GetArticleDto
     public Guid AuthorId { get; set; }
     [ForeignKey(nameof(AuthorId))]
     public AppUserDto Author { get; set; }
-    public IEnumerable<GetCommentDto> Comments { get; set; }
+    //public IEnumerable<ImageDto> Images { get; set; }
+    //public IEnumerable<GetCommentDto> Comments { get; set; }
 }
