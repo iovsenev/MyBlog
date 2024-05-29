@@ -1,18 +1,21 @@
-﻿using MyBlog.Contracts.AppUsers.DTOS;
-using MyBlog.Contracts.Comments.DTOS;
-using MyBlog.Contracts.Images.DTOS;
+﻿using MyBlog.Application.Comments.Dtos;
+using MyBlog.Application.Users.DTOS;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyBlog.Application.Articles.Dtos;
 
-public record GetArticleDto(
-    Guid Id,
-    string Title,
-    string Description,
-    string Text,
-    DateTimeOffset AddedDate,
-    int Likes,
-    int Dislikes,
-    AppUserDto Author,
-    IEnumerable<ImageDto> Images,
-    IEnumerable<CommentDto> Comments
-    );
+public class GetArticleDto
+{
+    public Guid Id { get; set; }
+    public string Title { get; set; }
+    public string Description { get; set; }
+    public string Text { get; set; }
+    public DateTimeOffset AddedDate { get; set; }
+    public int Likes { get; set; }
+    public int Dislikes { get; set; }
+    public Guid AuthorId { get; set; }
+    [ForeignKey(nameof(AuthorId))]
+    public AppUserDto Author { get; set; }
+    //public IEnumerable<ImageDto> Images { get; set; }
+    //public IEnumerable<GetCommentDto> Comments { get; set; }
+}

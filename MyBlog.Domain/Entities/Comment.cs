@@ -1,6 +1,4 @@
-﻿using MyBlog.Contracts.Comments.Requests;
-
-namespace MyBlog.Domain.Entities;
+﻿namespace MyBlog.Domain.Entities;
 
 public class Comment
 {
@@ -38,7 +36,7 @@ public class Comment
 
     public static Comment Create(
         AppUser author,
-        Article article,
-        CreateCommentRequest request)
+        Article article
+        )
     { return new Comment(); }
 }

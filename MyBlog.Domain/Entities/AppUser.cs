@@ -1,9 +1,7 @@
 ﻿using CSharpFunctionalExtensions;
-using MyBlog.Contracts.AppUsers.Requests;
 using MyBlog.Domain.Common;
 using MyBlog.Domain.ValueObjects;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyBlog.Domain.Entities;
 
@@ -56,58 +54,58 @@ public class AppUser
     public List<Article> Articles { get; private set; }
     public List<Comment> Comments { get; private set; }
 
-    public Result<AppUser, Error> Create(CreateAppUserRequest input)
-    {
-        var id = Guid.NewGuid();
-        var userName = input.UserName;
-        var passwordHash = input.PasswordHash;
-        var email = input.Email;
-        string firstName;
-        string lastName;
-        string secondName;
-        DateTime birthDate = input.BirthDate;
+    //public Result<AppUser, Error> Create(CreateAppUserRequest input)
+    //{
+    //    var id = Guid.NewGuid();
+    //    var userName = input.UserName;
+    //    var passwordHash = input.PasswordHash;
+    //    var email = input.Email;
+    //    string firstName;
+    //    string lastName;
+    //    string secondName;
+    //    DateTime birthDate = input.BirthDate;
 
-        if (string.IsNullOrEmpty(email))
-            return Errors.General.InValid(email);
+    //    if (string.IsNullOrEmpty(email))
+    //        return Errors.General.InValid(email);
 
-        if (string.IsNullOrEmpty(userName))
-            userName = input.Email;
+    //    if (string.IsNullOrEmpty(userName))
+    //        userName = input.Email;
 
-        if (string.IsNullOrEmpty(passwordHash))
-            return Errors.General.InValid(passwordHash);
+    //    if (string.IsNullOrEmpty(passwordHash))
+    //        return Errors.General.InValid(passwordHash);
 
-        if (string.IsNullOrEmpty(input.FirstName.Trim()))
-            firstName = "";
-        else
-            firstName = input.FirstName;
+    //    if (string.IsNullOrEmpty(input.FirstName.Trim()))
+    //        firstName = "";
+    //    else
+    //        firstName = input.FirstName;
 
-        if (string.IsNullOrEmpty(input.SecondName))
-            secondName = "";
-        else
-            secondName = input.SecondName;
+    //    if (string.IsNullOrEmpty(input.SecondName))
+    //        secondName = "";
+    //    else
+    //        secondName = input.SecondName;
 
-        if (!string.IsNullOrEmpty(input.LastName.Trim()))
-            lastName = "";
-        else
-            lastName = input.LastName;
+    //    if (!string.IsNullOrEmpty(input.LastName.Trim()))
+    //        lastName = "";
+    //    else
+    //        lastName = input.LastName;
 
-        if (birthDate > maxDate && birthDate < minDate)
-            return Errors.General.InValid(birthDate);
+    //    if (birthDate > maxDate && birthDate < minDate)
+    //        return Errors.General.InValid(birthDate);
 
-        var phone = Phone.Create(input.Phone);
-        if (phone.IsFailure)
-            return phone.Error;
+    //    var phone = Phone.Create(input.Phone);
+    //    if (phone.IsFailure)
+    //        return phone.Error;
 
-        return new AppUser(
-            id,
-            userName,
-            passwordHash,
-            email,
-            firstName,
-            lastName,
-            secondName,
-            birthDate,
-            phone.Value,
-            DateTimeOffset.UtcNow);
-    }
+    //    return new AppUser(
+    //        id,
+    //        userName,
+    //        passwordHash,
+    //        email,
+    //        firstName,
+    //        lastName,
+    //        secondName,
+    //        birthDate,
+    //        phone.Value,
+    //        DateTimeOffset.UtcNow);
+    //}
 }

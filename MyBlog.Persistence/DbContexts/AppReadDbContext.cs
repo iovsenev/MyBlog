@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using MyBlog.Application.Articles.Dtos;
 using MyBlog.Application.Interfaces.DataAccess;
-using MyBlog.Contracts.Articles.DTOS;
+using MyBlog.Application.Users.DTOS;
 using MyBlog.Persistence.EntityConfigurations.Read;
 
 namespace MyBlog.Persistence.DbContexts;
@@ -15,7 +16,10 @@ public class AppReadDbContext : DbContext, IReadDbContext
     {
         _configuration = configuration;
     }
-    public DbSet<ArticleDto> Articles => Set<ArticleDto>();
+
+    public DbSet<GetArticleDto> Articles { get; set; }
+
+    public DbSet<AppUserDto> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

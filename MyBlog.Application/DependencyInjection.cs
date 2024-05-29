@@ -14,8 +14,12 @@ namespace MyBlog.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-            services.AddScoped<IRequestHandler<GetAllArticleResponse>, 
+            services.AddScoped<
+                IQueryHandler<GetAllArticlesRequest, GetAllArticleResponse>, 
                 GetAllArticleQueryHandler>();
+            services.AddScoped<
+                ICommandHandler<CreateArticleRequest, Guid>, 
+                CreateArticleHandler>();
             services.AddValidatorsFromAssembly(typeof(CreateArticleRequestValidator).Assembly);
             services.AddFluentValidationAutoValidation(configuration =>
             {

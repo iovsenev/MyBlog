@@ -6,6 +6,7 @@ namespace MyBlog.Application.Interfaces.DataAccess
     public interface IWriteDbContext
     {
         public DbSet<Article> Articles { get; set; }
+        public DbSet<AppUser> Users { get; set; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }

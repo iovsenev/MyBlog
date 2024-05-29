@@ -10,8 +10,4 @@
     <PackageReference Include="CSharpFunctionalExtensions" Version="2.42.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\MyBlog.Contracts\MyBlog.Contracts.csproj" />
-  </ItemGroup>
-
 </Project>

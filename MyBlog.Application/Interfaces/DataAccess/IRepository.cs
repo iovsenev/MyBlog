@@ -1,5 +1,4 @@
 ﻿using CSharpFunctionalExtensions;
-using MyBlog.Contracts.Articles.Requests;
 using MyBlog.Domain.Common;
 
 namespace MyBlog.Application.Interfaces.DataAccess

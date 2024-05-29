@@ -1,12 +1,12 @@
 ﻿using CSharpFunctionalExtensions;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
 using MyBlog.Application.Interfaces.DataAccess;
+using MyBlog.Application.Interfaces.Services;
+using MyBlog.Domain.Common;
 using MyBlog.Domain.Entities;
 
 namespace MyBlog.Application.Articles.Command.Create;
 
-public class CreateArticleHandler : IRequestHandler<CreateArticleRequest, Result>
+public class CreateArticleHandler : ICommandHandler<CreateArticleRequest, Guid>
 {
     private readonly IWriteDbContext _dbContext;
 
@@ -15,16 +15,22 @@ public class CreateArticleHandler : IRequestHandler<CreateArticleRequest, Result
         _dbContext = dbContext;
     }
 
-    public async Task<Result> Handle(CreateArticleRequest request, CancellationToken cancellationToken)
+    public async Task<Result<Guid, Error>> Handle(CreateArticleRequest request, CancellationToken cancellationToken)
     {
-        var resultArticle = Article.Create(request.Title, request.Description, request.Text);
+        var author = await _dbContext.Users.FindAsync(request.AuthorId);
 
+        if (author is null)
+            return Errors.General.NotFound();
+        
+        var resultArticle = Article.Create(author.Id, request.Title, request.Description, request.Text);
         if (resultArticle.IsFailure)
-            return Result.Failure(resultArticle.Error.Serialize());
+            return resultArticle.Error;
+
+        //author.Articles.Add(resultArticle.Value);
 
         await _dbContext.Articles.AddAsync(resultArticle.Value, cancellationToken);
         await _dbContext.SaveChangesAsync(cancellationToken);
 
-        return Result.Success();
+        return resultArticle.Value.Id;
     }
 }

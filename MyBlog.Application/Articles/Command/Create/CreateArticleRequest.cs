@@ -1,5 +1,4 @@
-﻿using CSharpFunctionalExtensions;
-using MediatR;
+﻿using MyBlog.Application.Interfaces.Services;
 
 namespace MyBlog.Application.Articles.Command.Create
 {
@@ -7,5 +6,5 @@ namespace MyBlog.Application.Articles.Command.Create
         Guid AuthorId,
         string Title,
         string Description,
-        string Text) : IRequest<Result>;
+        string Text) : IRequest<Guid>;
 }

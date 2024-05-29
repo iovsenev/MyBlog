@@ -6,5 +6,5 @@ public record CommentDto(
     int Likes,
     int Dislikes,
     DateTimeOffset AddedDate,
-    Guid Author,
+    AppUser Author,
     Guid Article);

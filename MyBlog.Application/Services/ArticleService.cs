@@ -1,9 +1,6 @@
 ﻿using CSharpFunctionalExtensions;
-using MyBlog.Application.Articles.Command.Create;
 using MyBlog.Application.Articles.Queries.GetArticles;
 using MyBlog.Application.Interfaces.DataAccess;
-using MyBlog.Application.Interfaces.Services;
-using MyBlog.Contracts.Articles.DTOS;
 using MyBlog.Domain.Common;
 using MyBlog.Domain.Entities;
 

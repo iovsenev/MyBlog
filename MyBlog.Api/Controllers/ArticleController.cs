@@ -1,5 +1,4 @@
-﻿using CSharpFunctionalExtensions;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MyBlog.Api.Controllers.Common;
 using MyBlog.Application.Articles.Command.Create;
 using MyBlog.Application.Articles.Queries.GetArticles;
@@ -17,24 +16,26 @@ public class ArticleController : AppBaseController
 
     [HttpGet]
     public async Task<IActionResult> GetAll(
-        [FromServices] IRequestHandler<GetAllArticleResponse> query,
-        [FromQuery]GetAllArticlesRequest request, 
+        [FromServices] 
+        IQueryHandler<GetAllArticlesRequest, GetAllArticleResponse> query,
+        [FromQuery]
+        GetAllArticlesRequest request, 
         CancellationToken ct = default)
     {
         var result = await query.Handle(request, ct);
 
-        return result.IsFailure ? BadRequest(result.Error) : Ok(result.Value);
+        return result.IsFailure ? BadRequest(result.Error) : Ok(result.Value.Articles);
     }
 
     [HttpPost]
     public async Task<IActionResult> Create(
         [FromServices]
-        IMediator mediator,
+        ICommandHandler<CreateArticleRequest, Guid> command,
         [FromBody] 
         CreateArticleRequest request, 
         CancellationToken ct = default)
     {
-        var result = await _articleService.Create(request, ct);
+        var result = await command.Handle(request, ct);
 
         return result.IsSuccess ? Ok() : BadRequest(result.Error);
     }

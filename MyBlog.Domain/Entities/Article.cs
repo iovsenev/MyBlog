@@ -1,5 +1,6 @@
 ﻿using CSharpFunctionalExtensions;
 using MyBlog.Domain.Common;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyBlog.Domain.Entities;
 
@@ -14,7 +15,7 @@ public class Article
         DateTimeOffset addedDate,
         int likes,
         int dislikes,
-        AppUser author
+        Guid authorId
         )
     {
         Id = id;
@@ -24,7 +25,7 @@ public class Article
         AddedDate = addedDate;
         Likes = likes;
         Dislikes = dislikes;
-        Author = author;
+        AuthorId = authorId;
     }
 
     public Guid Id { get; private set; }
@@ -35,11 +36,12 @@ public class Article
     public int Likes { get; private set; }
     public int Dislikes { get; private set; }
 
+    public Guid AuthorId { get; private set; }
+    [ForeignKey(nameof(AuthorId))]
+    public AppUser Author { get; set; }
 
     public IReadOnlyList<Image> _images = [];
     public IReadOnlyList<Image> Images => _images;
-
-    public AppUser Author { get; set; }
 
     private IReadOnlyList<Comment> _comments = [];
     public IReadOnlyList<Comment> Comments => _comments;
@@ -48,7 +50,7 @@ public class Article
 
 
     public static Result<Article, Error> Create(
-        AppUser user,
+        Guid authorId,
         string title,
         string description,
         string text
@@ -67,6 +69,6 @@ public class Article
 
         var addedDate = DateTimeOffset.UtcNow;
 
-        return new Article(id, title, description, text, addedDate, 0, 0, user);
+        return new Article(id, title, description, text, addedDate, 0, 0, authorId);
     }
 }
