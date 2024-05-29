@@ -26,8 +26,6 @@ public class CreateArticleHandler : ICommandHandler<CreateArticleRequest, Guid>
         if (resultArticle.IsFailure)
             return resultArticle.Error;
 
-        //author.Articles.Add(resultArticle.Value);
-
         await _dbContext.Articles.AddAsync(resultArticle.Value, cancellationToken);
         await _dbContext.SaveChangesAsync(cancellationToken);
 

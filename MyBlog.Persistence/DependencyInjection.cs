@@ -7,7 +7,7 @@ namespace MyBlog.Persistence;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddPersistence(this IServiceCollection services)
     {
         services.AddSingleton<IWriteDbContext, AppWriteDbContext>();
         services.AddSingleton<IReadDbContext, AppReadDbContext>();

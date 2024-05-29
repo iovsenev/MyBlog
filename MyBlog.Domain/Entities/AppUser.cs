@@ -15,7 +15,7 @@ public class AppUser
         Guid id,
         string userName,
         string passwordHash,
-        string email,
+        EmailObject email,
         string firstName,
         string lastName,
         string secondName,
@@ -40,8 +40,8 @@ public class AppUser
     public string UserName { get; private set; }
     [Required]
     public string PasswordHash { get; private set; }
-    [Required, EmailAddress]
-    public string Email { get; private set; }
+    [Required]
+    public EmailObject Email { get; private set; }
     [Required]
     public Phone Phone { get; private set; }
 
@@ -51,61 +51,67 @@ public class AppUser
     public DateTimeOffset BirthDate { get; private set; }
     public DateTimeOffset RegistrationDate { get; private set; }
 
-    public List<Article> Articles { get; private set; }
-    public List<Comment> Comments { get; private set; }
+    private IReadOnlyList<Article> _articles = [];
+    public IReadOnlyList<Article> Articles => _articles;
 
-    //public Result<AppUser, Error> Create(CreateAppUserRequest input)
-    //{
-    //    var id = Guid.NewGuid();
-    //    var userName = input.UserName;
-    //    var passwordHash = input.PasswordHash;
-    //    var email = input.Email;
-    //    string firstName;
-    //    string lastName;
-    //    string secondName;
-    //    DateTime birthDate = input.BirthDate;
+    private IReadOnlyList<Comment> _comments = [];
+    public IReadOnlyList<Comment> Comments => _comments;
 
-    //    if (string.IsNullOrEmpty(email))
-    //        return Errors.General.InValid(email);
+    public Result<AppUser, Error> Create(
+        string userName,
+        string passwordHash,
+        string emailInput,
+        string firstName,
+        string secondName,
+        string lastName,
+        string phoneInput,
+        DateTime birthDate
+        )
+    {
+        var id = Guid.NewGuid();
 
-    //    if (string.IsNullOrEmpty(userName))
-    //        userName = input.Email;
+        var emailReslt = EmailObject.Create(emailInput);
 
-    //    if (string.IsNullOrEmpty(passwordHash))
-    //        return Errors.General.InValid(passwordHash);
+        if (emailReslt.IsFailure)
+            return Errors.General.InValid(emailInput);
 
-    //    if (string.IsNullOrEmpty(input.FirstName.Trim()))
-    //        firstName = "";
-    //    else
-    //        firstName = input.FirstName;
+        userName = userName.Trim();
+        if (string.IsNullOrEmpty(userName))
+            userName = emailReslt.Value.Email;
 
-    //    if (string.IsNullOrEmpty(input.SecondName))
-    //        secondName = "";
-    //    else
-    //        secondName = input.SecondName;
+        passwordHash = passwordHash.Trim();
+        if (string.IsNullOrEmpty(passwordHash))
+            return Errors.General.InValid(passwordHash);
 
-    //    if (!string.IsNullOrEmpty(input.LastName.Trim()))
-    //        lastName = "";
-    //    else
-    //        lastName = input.LastName;
+        firstName = firstName.Trim();
+        if (string.IsNullOrEmpty(firstName))
+            firstName = "";
 
-    //    if (birthDate > maxDate && birthDate < minDate)
-    //        return Errors.General.InValid(birthDate);
+        secondName = secondName.Trim();
+        if (string.IsNullOrEmpty(secondName))
+            secondName = "";
 
-    //    var phone = Phone.Create(input.Phone);
-    //    if (phone.IsFailure)
-    //        return phone.Error;
+        lastName = lastName.Trim();
+        if (!string.IsNullOrEmpty(lastName))
+            lastName = "";
 
-    //    return new AppUser(
-    //        id,
-    //        userName,
-    //        passwordHash,
-    //        email,
-    //        firstName,
-    //        lastName,
-    //        secondName,
-    //        birthDate,
-    //        phone.Value,
-    //        DateTimeOffset.UtcNow);
-    //}
+        if (birthDate > maxDate && birthDate < minDate)
+            return Errors.General.InValid(birthDate);
+
+        var phone = Phone.Create(phoneInput);
+        if (phone.IsFailure)
+            return phone.Error;
+
+        return new AppUser(
+            id,
+            userName,
+            passwordHash,
+            emailReslt.Value,
+            firstName,
+            lastName,
+            secondName,
+            birthDate,
+            phone.Value,
+            DateTimeOffset.UtcNow);
+    }
 }

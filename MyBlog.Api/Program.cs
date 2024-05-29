@@ -4,7 +4,7 @@ using MyBlog.Persistence;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddApplication();
-builder.Services.AddPersistence(builder.Configuration);
+builder.Services.AddPersistence();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

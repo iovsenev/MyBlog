@@ -40,9 +40,6 @@ public class Article
     [ForeignKey(nameof(AuthorId))]
     public AppUser Author { get; set; }
 
-    public IReadOnlyList<Image> _images = [];
-    public IReadOnlyList<Image> Images => _images;
-
     private IReadOnlyList<Comment> _comments = [];
     public IReadOnlyList<Comment> Comments => _comments;
 
