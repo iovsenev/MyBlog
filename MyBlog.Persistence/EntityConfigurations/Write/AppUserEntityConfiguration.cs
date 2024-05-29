@@ -16,9 +16,6 @@ public class AppUserEntityConfiguration : IEntityTypeConfiguration<AppUser>
         builder.Property(u => u.UserName)
             .IsRequired()
             .HasColumnName("user_name");
-        builder.Property(u => u.Email)
-            .IsRequired()
-            .HasColumnName("email");
         builder.Property(u => u.PasswordHash)
             .IsRequired()
             .HasColumnName("user_password_hash");
@@ -44,6 +41,10 @@ public class AppUserEntityConfiguration : IEntityTypeConfiguration<AppUser>
         builder.ComplexProperty(u => u.Phone, p => 
                 p.Property(p => p.PhoneNumber)
                     .HasColumnName("phone_number"));
+
+        builder.ComplexProperty(u => u.Email, p => 
+                p.Property(p => p.Email)
+                    .HasColumnName("email"));
 
         builder.HasMany(u => u.Articles)
             .WithOne(a => a.Author)

@@ -18,12 +18,12 @@ namespace MyBlog.Persistence.Migrations
                     id = table.Column<Guid>(type: "uuid", nullable: false),
                     user_name = table.Column<string>(type: "text", nullable: false),
                     user_password_hash = table.Column<string>(type: "text", nullable: false),
-                    email = table.Column<string>(type: "text", nullable: false),
                     user_first_name = table.Column<string>(type: "text", nullable: false, defaultValue: "unknown"),
                     user_last_name = table.Column<string>(name: "user_last_name;", type: "text", nullable: false, defaultValue: "unknown"),
                     user_second_name = table.Column<string>(name: "user_second_name;", type: "text", nullable: false, defaultValue: "unknown"),
                     user_birth_date = table.Column<DateTimeOffset>(name: "user_birth_date;", type: "timestamp with time zone", nullable: false),
                     user_registration_date = table.Column<DateTimeOffset>(name: "user_registration_date;", type: "timestamp with time zone", nullable: false),
+                    email = table.Column<string>(type: "text", nullable: false),
                     phone_number = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
@@ -82,26 +82,6 @@ namespace MyBlog.Persistence.Migrations
                         principalColumn: "id");
                 });
 
-            migrationBuilder.CreateTable(
-                name: "images",
-                columns: table => new
-                {
-                    id = table.Column<Guid>(type: "uuid", nullable: false),
-                    path = table.Column<string>(type: "text", nullable: false),
-                    is_main = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
-                    article_id = table.Column<Guid>(type: "uuid", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_images", x => x.id);
-                    table.ForeignKey(
-                        name: "fk_images_articles_article_id",
-                        column: x => x.article_id,
-                        principalTable: "articles",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "ix_articles_author_id",
                 table: "articles",
@@ -116,11 +96,6 @@ namespace MyBlog.Persistence.Migrations
                 name: "ix_comments_author_id",
                 table: "comments",
                 column: "author_id");
-
-            migrationBuilder.CreateIndex(
-                name: "ix_images_article_id",
-                table: "images",
-                column: "article_id");
         }
 
         /// <inheritdoc />
@@ -128,9 +103,6 @@ namespace MyBlog.Persistence.Migrations
         {
             migrationBuilder.DropTable(
                 name: "comments");
-
-            migrationBuilder.DropTable(
-                name: "images");
 
             migrationBuilder.DropTable(
                 name: "articles");

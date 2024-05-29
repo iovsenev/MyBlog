@@ -31,7 +31,6 @@ public class Comment
 
 
     public AppUser Author { get; private set; }
-
     public Article Article { get; private set; }
 
     public static Comment Create(

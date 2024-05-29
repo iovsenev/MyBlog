@@ -13,7 +13,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MyBlog.Persistence.Migrations
 {
     [DbContext(typeof(AppWriteDbContext))]
-    [Migration("20240529065207_init")]
+    [Migration("20240529123804_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -36,11 +36,6 @@ namespace MyBlog.Persistence.Migrations
                     b.Property<DateTimeOffset>("BirthDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("user_birth_date;");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("email");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -76,6 +71,16 @@ namespace MyBlog.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("user_name");
+
+                    b.ComplexProperty<Dictionary<string, object>>("Email", "MyBlog.Domain.Entities.AppUser.Email#EmailObject", b1 =>
+                        {
+                            b1.IsRequired();
+
+                            b1.Property<string>("Email")
+                                .IsRequired()
+                                .HasColumnType("text")
+                                .HasColumnName("email");
+                        });
 
                     b.ComplexProperty<Dictionary<string, object>>("Phone", "MyBlog.Domain.Entities.AppUser.Phone#Phone", b1 =>
                         {
@@ -192,37 +197,6 @@ namespace MyBlog.Persistence.Migrations
                     b.ToTable("comments", (string)null);
                 });
 
-            modelBuilder.Entity("MyBlog.Domain.Entities.Image", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<Guid>("ArticleId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("article_id");
-
-                    b.Property<bool>("IsMain")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("boolean")
-                        .HasDefaultValue(false)
-                        .HasColumnName("is_main");
-
-                    b.Property<string>("Path")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("path");
-
-                    b.HasKey("Id")
-                        .HasName("pk_images");
-
-                    b.HasIndex("ArticleId")
-                        .HasDatabaseName("ix_images_article_id");
-
-                    b.ToTable("images", (string)null);
-                });
-
             modelBuilder.Entity("MyBlog.Domain.Entities.Article", b =>
                 {
                     b.HasOne("MyBlog.Domain.Entities.AppUser", "Author")
@@ -256,18 +230,6 @@ namespace MyBlog.Persistence.Migrations
                     b.Navigation("Author");
                 });
 
-            modelBuilder.Entity("MyBlog.Domain.Entities.Image", b =>
-                {
-                    b.HasOne("MyBlog.Domain.Entities.Article", "Article")
-                        .WithMany("Images")
-                        .HasForeignKey("ArticleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_images_articles_article_id");
-
-                    b.Navigation("Article");
-                });
-
             modelBuilder.Entity("MyBlog.Domain.Entities.AppUser", b =>
                 {
                     b.Navigation("Articles");
@@ -278,8 +240,6 @@ namespace MyBlog.Persistence.Migrations
             modelBuilder.Entity("MyBlog.Domain.Entities.Article", b =>
                 {
                     b.Navigation("Comments");
-
-                    b.Navigation("Images");
                 });
 #pragma warning restore 612, 618
         }
