@@ -4,7 +4,7 @@ using MyBlog.Application.Interfaces.Services;
 using MyBlog.Application.Users.DTOS;
 using MyBlog.Domain.Common;
 
-namespace MyBlog.Application.Users.Queries
+namespace MyBlog.Application.Users.Queries.GetUserById
 {
     public class GetUserByIdHandler : ICommandHandler<GetUserByIdRequest, AppUserDto>
     {

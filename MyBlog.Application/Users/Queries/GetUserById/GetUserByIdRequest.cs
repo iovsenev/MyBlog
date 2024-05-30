@@ -1,7 +1,7 @@
 ﻿using MyBlog.Application.Interfaces.Services;
 using MyBlog.Application.Users.DTOS;
 
-namespace MyBlog.Application.Users.Queries
+namespace MyBlog.Application.Users.Queries.GetUserById
 {
     public class GetUserByIdRequest : IRequest<AppUserDto>
     {

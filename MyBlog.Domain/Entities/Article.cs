@@ -43,7 +43,8 @@ public class Article
     private IReadOnlyList<Comment> _comments = [];
     public IReadOnlyList<Comment> Comments => _comments;
 
-    //public IReadOnlyList<Tag> Tags { get; set; }
+    private IReadOnlyList<Tag> _tags = [];
+    public IReadOnlyList<Tag> Tags => _tags;
 
 
     public static Result<Article, Error> Create(

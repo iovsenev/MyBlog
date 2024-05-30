@@ -40,5 +40,8 @@ public class ArticleEntityConfiguration : IEntityTypeConfiguration<Article>
             .WithMany(U => U.Articles)
             .HasConstraintName("author_id");
 
+        builder.HasMany(a => a.Tags)
+            .WithMany(t => t.Articles);
+
     }
 }

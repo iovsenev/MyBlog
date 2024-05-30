@@ -7,7 +7,6 @@ namespace MyBlog.Domain.ValueObjects;
 public class Phone
 {
     private const string regexValidationPhone = @"^((8 |\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$";
-    public string PhoneNumber { get;}
 
     private Phone() { }
 
@@ -15,6 +14,8 @@ public class Phone
     {
         PhoneNumber = phoneNumber;
     }
+
+    public string PhoneNumber { get;} = string.Empty;
 
     public static Result<Phone, Error> Create(string input)
     {

@@ -9,7 +9,7 @@ public class CreateUserRequestValidator : AbstractValidator<CreateUserRequest>
             .NotEmpty()
             .NotNull()
             .EmailAddress();
-        RuleFor(u => u.passwordHash)
+        RuleFor(u => u.password)
             .NotEmpty()
             .NotNull();
         RuleFor(u => u.userName)

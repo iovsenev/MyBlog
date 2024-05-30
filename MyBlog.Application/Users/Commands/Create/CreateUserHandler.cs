@@ -1,9 +1,9 @@
-﻿
-using CSharpFunctionalExtensions;
+﻿using CSharpFunctionalExtensions;
 using MyBlog.Application.Interfaces.DataAccess;
 using MyBlog.Application.Interfaces.Services;
 using MyBlog.Domain.Common;
 using MyBlog.Domain.Entities;
+using BC = BCrypt.Net;
 
 namespace MyBlog.Application.Users.Commands.Create;
 
@@ -18,15 +18,13 @@ public class CreateUserHandler : ICommandHandler<CreateUserRequest, Guid>
 
     public async Task<Result<Guid, Error>> Handle(CreateUserRequest request, CancellationToken cancellationToken)
     {
+        var passwordHash = BC.BCrypt.HashPassword(request.password);
+
         var result = AppUser.Create(
             request.userName,
-            request.passwordHash,
-            request.emailInput,
-            request.phoneInput,
-            request.firstName,
-            request.lastName,
-            request.secondName,
-            request.birthDate);
+            passwordHash,
+            request.emailInput);
+
 
         if (result.IsFailure)
             return result.Error;

@@ -11,6 +11,11 @@ public class AppUserEntityConfiguration : IEntityTypeConfiguration<AppUser>
 
         builder.HasKey(u => u.Id);
 
+        builder.HasIndex(u => u.UserName)
+            .IsUnique();
+        builder.HasIndex(u => u.Email)
+            .IsUnique();
+
         builder.Property(u => u.Id)
             .HasColumnName("id");
         builder.Property(u => u.UserName)
@@ -19,27 +24,29 @@ public class AppUserEntityConfiguration : IEntityTypeConfiguration<AppUser>
         builder.Property(u => u.PasswordHash)
             .IsRequired()
             .HasColumnName("user_password_hash");
+        builder.Property(u => u.RegistrationDate)
+            .IsRequired()
+            .HasColumnName("user_registration_date;");
         builder.Property(u => u.FirstName)
-            .HasDefaultValue("unknown")
+            .HasDefaultValue("")
             .IsRequired()
             .HasColumnName("user_first_name");
         builder.Property(u => u.SecondName)
-            .HasDefaultValue("unknown")
+            .HasDefaultValue("")
             .IsRequired()
             .HasColumnName("user_second_name;");
         builder.Property(u => u.LastName)
-            .HasDefaultValue("unknown")
+            .HasDefaultValue("")
             .IsRequired()
             .HasColumnName("user_last_name;");
         builder.Property(u => u.BirthDate)
             .IsRequired()
-            .HasColumnName("user_birth_date;");
-        builder.Property(u => u.RegistrationDate)
-            .IsRequired()
-            .HasColumnName("user_registration_date;");
+            .HasColumnName("user_birth_date;")
+            .HasDefaultValue(DateTimeOffset.MinValue);
 
-        builder.ComplexProperty(u => u.Phone, p => 
+        builder.ComplexProperty(u => u.Phone, p =>
                 p.Property(p => p.PhoneNumber)
+                    .HasDefaultValue("+79998887766")
                     .HasColumnName("phone_number"));
 
         builder.ComplexProperty(u => u.Email, p => 

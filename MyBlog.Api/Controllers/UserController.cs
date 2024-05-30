@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyBlog.Api.Controllers.Common;
+using MyBlog.Api.Models.Users;
 using MyBlog.Application.Interfaces.Services;
 using MyBlog.Application.Users.Commands.Create;
 
@@ -25,5 +26,13 @@ public class UserController : AppBaseController
         var result = await handler.Handle(request, token);
 
         return result.IsSuccess ? Ok() : BadRequest(result.Error);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Get([FromQuery]Guid id, CancellationToken token = default)
+    {
+        var user = new UserViewModel();
+
+        return Ok(user);
     }
 }

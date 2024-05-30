@@ -13,7 +13,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MyBlog.Persistence.Migrations
 {
     [DbContext(typeof(AppWriteDbContext))]
-    [Migration("20240529132359_Initial")]
+    [Migration("20240530103123_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -26,6 +26,25 @@ namespace MyBlog.Persistence.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("ArticleTag", b =>
+                {
+                    b.Property<Guid>("ArticlesId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("articles_id");
+
+                    b.Property<Guid>("TagsId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("tags_id");
+
+                    b.HasKey("ArticlesId", "TagsId")
+                        .HasName("pk_article_tag");
+
+                    b.HasIndex("TagsId")
+                        .HasDatabaseName("ix_article_tag_tags_id");
+
+                    b.ToTable("article_tag", (string)null);
+                });
+
             modelBuilder.Entity("MyBlog.Domain.Entities.AppUser", b =>
                 {
                     b.Property<Guid>("Id")
@@ -34,21 +53,23 @@ namespace MyBlog.Persistence.Migrations
                         .HasColumnName("id");
 
                     b.Property<DateTimeOffset>("BirthDate")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)))
                         .HasColumnName("user_birth_date;");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasColumnType("text")
-                        .HasDefaultValue("unknown")
+                        .HasDefaultValue("")
                         .HasColumnName("user_first_name");
 
                     b.Property<string>("LastName")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasColumnType("text")
-                        .HasDefaultValue("unknown")
+                        .HasDefaultValue("")
                         .HasColumnName("user_last_name;");
 
                     b.Property<string>("PasswordHash")
@@ -64,7 +85,7 @@ namespace MyBlog.Persistence.Migrations
                         .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasColumnType("text")
-                        .HasDefaultValue("unknown")
+                        .HasDefaultValue("")
                         .HasColumnName("user_second_name;");
 
                     b.Property<string>("UserName")
@@ -88,7 +109,9 @@ namespace MyBlog.Persistence.Migrations
 
                             b1.Property<string>("PhoneNumber")
                                 .IsRequired()
+                                .ValueGeneratedOnAdd()
                                 .HasColumnType("text")
+                                .HasDefaultValue("+79998887766")
                                 .HasColumnName("phone_number");
                         });
 
@@ -195,6 +218,41 @@ namespace MyBlog.Persistence.Migrations
                         .HasDatabaseName("ix_comments_author_id");
 
                     b.ToTable("comments", (string)null);
+                });
+
+            modelBuilder.Entity("MyBlog.Domain.Entities.Tag", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("tag_name");
+
+                    b.HasKey("Id")
+                        .HasName("pk_tags");
+
+                    b.ToTable("tags", (string)null);
+                });
+
+            modelBuilder.Entity("ArticleTag", b =>
+                {
+                    b.HasOne("MyBlog.Domain.Entities.Article", null)
+                        .WithMany()
+                        .HasForeignKey("ArticlesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_article_tag_articles_articles_id");
+
+                    b.HasOne("MyBlog.Domain.Entities.Tag", null)
+                        .WithMany()
+                        .HasForeignKey("TagsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_article_tag_tag_tags_id");
                 });
 
             modelBuilder.Entity("MyBlog.Domain.Entities.Article", b =>
