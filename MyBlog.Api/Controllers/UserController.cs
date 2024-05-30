@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyBlog.Api.Controllers.Common;
+using MyBlog.Api.Mappings;
 using MyBlog.Api.Models.Users;
 using MyBlog.Application.Interfaces.Services;
 using MyBlog.Application.Users.Commands.Create;
+using MyBlog.Application.Users.DTOS;
+using MyBlog.Application.Users.Queries.GetUserById;
 
 namespace MyBlog.Api.Controllers;
 
@@ -29,10 +32,20 @@ public class UserController : AppBaseController
     }
 
     [HttpPost]
-    public async Task<IActionResult> Get([FromQuery]Guid id, CancellationToken token = default)
+    public async Task<IActionResult> Get(
+        [FromServices]
+        IQueryHandler<GetUserByIdRequest, AppUserDto> handler,
+        [FromQuery]
+        Guid id,
+        CancellationToken token = default)
     {
-        var user = new UserViewModel();
+        var request = new GetUserByIdRequest {Id = id};
+        var user = await handler.Handle(request, token);
+           
+        if (user.IsFailure)
+            return BadRequest(user.Error);
+        var userVM = user.Value.ToUserViewModel();
 
-        return Ok(user);
+        return Ok(userVM);
     }
 }

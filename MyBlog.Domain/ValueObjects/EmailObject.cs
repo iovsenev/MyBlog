@@ -2,28 +2,27 @@
 using MyBlog.Domain.Common;
 using System.Text.RegularExpressions;
 
-namespace MyBlog.Domain.ValueObjects
+namespace MyBlog.Domain.ValueObjects;
+
+public class EmailObject
 {
-    public class EmailObject
+    private const string Pattern = "(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$)";
+
+    private EmailObject() { }
+    private EmailObject(string input)
     {
-        private const string Pattern = "(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$)";
+        Email = input;
+    }
 
-        private EmailObject() { }
-        private EmailObject(string input)
-        {
-            Email = input;
-        }
+    public string Email { get; private set; }
 
-        public string Email { get; private set; }
-
-        public static Result<EmailObject, Error> Create(string input)
-        {
-            input = input.Trim();
-            if (string.IsNullOrEmpty(input))
-                return Errors.General.InValid(input);
-            if (!Regex.IsMatch(input, Pattern))
-                return Errors.General.InValid(input);
-            return new EmailObject(input);
-        }
+    public static Result<EmailObject, Error> Create(string input)
+    {
+        input = input.Trim();
+        if (string.IsNullOrEmpty(input))
+            return Errors.General.InValid(input);
+        if (!Regex.IsMatch(input, Pattern))
+            return Errors.General.InValid(input);
+        return new EmailObject(input);
     }
 }

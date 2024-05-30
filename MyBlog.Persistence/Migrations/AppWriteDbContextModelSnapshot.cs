@@ -115,6 +115,10 @@ namespace MyBlog.Persistence.Migrations
                     b.HasKey("Id")
                         .HasName("pk_users");
 
+                    b.HasIndex("UserName")
+                        .IsUnique()
+                        .HasDatabaseName("ix_users_user_name");
+
                     b.ToTable("users", (string)null);
                 });
 
@@ -231,6 +235,10 @@ namespace MyBlog.Persistence.Migrations
 
                     b.HasKey("Id")
                         .HasName("pk_tags");
+
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasDatabaseName("ix_tags_name");
 
                     b.ToTable("tags", (string)null);
                 });

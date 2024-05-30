@@ -137,6 +137,18 @@ namespace MyBlog.Persistence.Migrations
                 name: "ix_comments_author_id",
                 table: "comments",
                 column: "author_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_tags_name",
+                table: "tags",
+                column: "tag_name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "ix_users_user_name",
+                table: "users",
+                column: "user_name",
+                unique: true);
         }
 
         /// <inheritdoc />
