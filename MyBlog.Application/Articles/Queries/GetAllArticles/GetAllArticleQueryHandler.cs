@@ -4,7 +4,7 @@ using MyBlog.Application.Interfaces.DataAccess;
 using MyBlog.Application.Interfaces.Services;
 using MyBlog.Domain.Common;
 
-namespace MyBlog.Application.Articles.Queries.GetArticles;
+namespace MyBlog.Application.Articles.Queries.GetAllArticles;
 public class GetAllArticleQueryHandler : IQueryHandler<GetAllArticlesRequest, GetAllArticleResponse>
 {
     private readonly IReadDbContext _context;

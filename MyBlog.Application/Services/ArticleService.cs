@@ -1,5 +1,5 @@
 ﻿using CSharpFunctionalExtensions;
-using MyBlog.Application.Articles.Queries.GetArticles;
+using MyBlog.Application.Articles.Queries.GetAllArticles;
 using MyBlog.Application.Interfaces.DataAccess;
 using MyBlog.Domain.Common;
 using MyBlog.Domain.Entities;

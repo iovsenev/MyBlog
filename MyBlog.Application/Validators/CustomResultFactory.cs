@@ -3,22 +3,21 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using MyBlog.Application.Helpers;
 using SharpGrip.FluentValidation.AutoValidation.Mvc.Results;
 
-namespace MyBlog.Application.Validators
+namespace MyBlog.Application.Validators;
+
+public class CustomResultFactory : IFluentValidationAutoValidationResultFactory
 {
-    public class CustomResultFactory : IFluentValidationAutoValidationResultFactory
+    public IActionResult CreateActionResult(
+        ActionExecutingContext context,
+        ValidationProblemDetails? validationProblemDetails)
     {
-        public IActionResult CreateActionResult(
-            ActionExecutingContext context,
-            ValidationProblemDetails? validationProblemDetails)
-        {
-            if (validationProblemDetails is null)
-                return new BadRequestObjectResult("Wrong something");
+        if (validationProblemDetails is null)
+            return new BadRequestObjectResult("Wrong something");
 
-            var errors = validationProblemDetails.Errors.ToDictionary();
+        var errors = validationProblemDetails.Errors.ToDictionary();
 
-            var envelope = RequestFormat.Error(errors);
+        var envelope = RequestFormat.Error(errors);
 
-            return new BadRequestObjectResult(envelope);
-        }
+        return new BadRequestObjectResult(envelope);
     }
 }

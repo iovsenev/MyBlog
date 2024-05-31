@@ -1,4 +1,5 @@
 ﻿using CSharpFunctionalExtensions;
+using Microsoft.EntityFrameworkCore;
 using MyBlog.Application.Interfaces.DataAccess;
 using MyBlog.Application.Interfaces.Services;
 using MyBlog.Domain.Common;
@@ -20,6 +21,13 @@ public class CreateUserHandler : ICommandHandler<CreateUserRequest, Guid>
     {
         var passwordHash = BC.BCrypt.HashPassword(request.password);
 
+        var entity = await _context.Users
+            .FirstOrDefaultAsync(u => u.UserName == request.userName ||
+                        u.Email.Email == request.emailInput);
+
+        if (entity is not null)
+            return Errors.General.AlreadyExists();
+
         var result = AppUser.Create(
             request.userName,
             passwordHash,
@@ -28,6 +36,7 @@ public class CreateUserHandler : ICommandHandler<CreateUserRequest, Guid>
 
         if (result.IsFailure)
             return result.Error;
+
 
         await _context.Users.AddAsync(result.Value, cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);

@@ -1,10 +1,8 @@
 ﻿namespace MyBlog.Api.Models.Users;
 
-public record UserViewModel(
+public record UserViewModelForList(
     Guid Id,
     string UserName,
-    string FirstName,
-    string SecondName,
-    string LastName,
+    string FullName,
     DateTime BirthDate,
     DateTime RegisterDate);

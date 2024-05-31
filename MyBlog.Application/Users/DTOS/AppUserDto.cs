@@ -16,6 +16,6 @@ public class AppUserDto
     public DateTimeOffset BirthDate { get; set; }
     public DateTimeOffset RegistrationDate { get; set; }
 
-    public List<GetArticleDto> Articles { get; set; }
-    public List<GetCommentDto> Comments { get; set; }
+    public ICollection<GetArticleDto> Articles { get; set; }
+    public ICollection<GetCommentDto> Comments { get; set; }
 }

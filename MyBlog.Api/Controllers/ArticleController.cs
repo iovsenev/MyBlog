@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyBlog.Api.Controllers.Common;
 using MyBlog.Application.Articles.Command.Create;
-using MyBlog.Application.Articles.Queries.GetArticles;
+using MyBlog.Application.Articles.Queries.GetAllArticles;
 using MyBlog.Application.Interfaces.Services;
 
 namespace MyBlog.Api.Controllers;

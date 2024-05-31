@@ -1,24 +1,28 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyBlog.Application.Helpers;
+using MyBlog.Domain.Common;
 
-namespace MyBlog.Api.Controllers.Common
+namespace MyBlog.Api.Controllers.Common;
+
+[ApiController]
+[Route("[controller]")]
+public abstract class AppBaseController : ControllerBase
 {
-    [ApiController]
-    [Route("[controller]")]
-    public abstract class AppBaseController : ControllerBase
+    protected new IActionResult Ok(object? result = null)
     {
-        protected new IActionResult Ok(object? result = null)
-        {
-            var envelope = RequestFormat.Ok(result);
+        var envelope = RequestFormat.Ok(result);
 
-            return base.Ok(envelope);
-        }
+        return base.Ok(envelope);
+    }
 
-        protected new IActionResult BadRequest(Dictionary<string, string[]>? errors = null)
-        {
-            var envelope = RequestFormat.Error(errors);
+    protected IActionResult BadRequest(Error error)
+    {
+        var errors = new Dictionary<string, string[]>();
 
-            return base.BadRequest(envelope);
-        }
+        errors.Add(error.ErrorCode, new[] { error.Message});
+
+        var envelope = RequestFormat.Error(errors);
+
+        return base.BadRequest(envelope);
     }
 }

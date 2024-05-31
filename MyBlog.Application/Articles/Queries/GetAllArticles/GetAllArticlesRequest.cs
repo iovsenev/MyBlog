@@ -1,6 +1,6 @@
 ﻿using MyBlog.Application.Interfaces.Services;
 
-namespace MyBlog.Application.Articles.Queries.GetArticles;
+namespace MyBlog.Application.Articles.Queries.GetAllArticles;
 
 public class GetAllArticlesRequest : IRequest<GetAllArticleResponse>
 {
@@ -17,7 +17,7 @@ public class GetAllArticlesRequest : IRequest<GetAllArticleResponse>
     //}
 
     public string? Autor { get; set; }
-    public string? Contains { get; set;}
+    public string? Contains { get; set; }
     public int PageIndex { get; set; } = 1;
     public int SizePage { get; set; } = 10;
 }

@@ -1,5 +1,6 @@
 ﻿using MyBlog.Application.Comments.Dtos;
 using MyBlog.Application.Users.DTOS;
+using MyBlog.Domain.Entities;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyBlog.Application.Articles.Dtos;
@@ -16,6 +17,6 @@ public class GetArticleDto
     public Guid AuthorId { get; set; }
     [ForeignKey(nameof(AuthorId))]
     public AppUserDto Author { get; set; }
-    //public IEnumerable<ImageDto> Images { get; set; }
-    //public IEnumerable<GetCommentDto> Comments { get; set; }
+    public ICollection<GetCommentDto> Comments { get; set; }
+    public ICollection<Tag> Tags { get; set; }
 }
