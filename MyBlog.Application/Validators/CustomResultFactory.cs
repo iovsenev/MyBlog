@@ -16,7 +16,7 @@ public class CustomResultFactory : IFluentValidationAutoValidationResultFactory
 
         var errors = validationProblemDetails.Errors.ToDictionary();
 
-        var envelope = RequestFormat.Error(errors);
+        var envelope = ResponseFormat.Error(errors);
 
         return new BadRequestObjectResult(envelope);
     }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using MyBlog.Application.Users.DTOS;
+using MyBlog.Domain.Entities.ReadEntity;
 
 namespace MyBlog.Persistence.EntityConfigurations.Read;
 public class UserEntityConfiguration : IEntityTypeConfiguration<AppUserDto>

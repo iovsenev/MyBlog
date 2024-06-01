@@ -1,5 +1,5 @@
 ﻿using MyBlog.Api.Models.Users;
-using MyBlog.Application.Users.DTOS;
+using MyBlog.Domain.Entities.ReadEntity;
 
 namespace MyBlog.Api.Mappings;
 

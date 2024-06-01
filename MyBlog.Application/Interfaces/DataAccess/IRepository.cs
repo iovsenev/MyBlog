@@ -1,13 +1,10 @@
 ﻿using CSharpFunctionalExtensions;
 using MyBlog.Domain.Common;
+using MyBlog.Domain.Entities.WriteEntity;
 
-namespace MyBlog.Application.Interfaces.DataAccess
+namespace MyBlog.Application.Interfaces.DataAccess;
+public interface IRepository<TEntity>
 {
-    public interface IRepository<TEnity>
-    {
-        Task<Result> Create(TEnity article, CancellationToken ct = default);
-        Task<Result> Delete(Guid id, CancellationToken ct = default);
-        Task<Result<IReadOnlyList<TEnity>, Error>> GetAll(int pageIndex, int sizePage, CancellationToken ct = default);
-        Task<Result<TEnity, Error>> GetById(Guid id, CancellationToken ct = default);
-    }
+    Task<Result<Guid, Error>> Create(TEntity user, CancellationToken ct);
+    Task<Result<TEntity, Error>> GetById(Guid id, CancellationToken ct);
 }

@@ -1,10 +1,15 @@
 ﻿using CSharpFunctionalExtensions;
 using MyBlog.Domain.Common;
 
-namespace MyBlog.Application.Interfaces.Services
+namespace MyBlog.Application.Interfaces.Services;
+
+public interface IQueryHandler<TRequest, TResponse> : IQueryHandler<TRequest>
 {
-    public interface IQueryHandler<in TRequest, TResponse> where TRequest : IRequest<TResponse>
-    {
-        Task<Result<TResponse, Error>> Handle(TRequest request, CancellationToken ct);
-    }
+    Task<Result<ICollection<TResponse>, Error>> Handle(TRequest? request, CancellationToken ct);
 }
+
+public interface IQueryHandler<TResponse>
+{
+    Task<Result<ICollection<TResponse>, Error>> Handle(CancellationToken ct);
+}
+

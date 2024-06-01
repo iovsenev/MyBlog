@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using MyBlog.Application.Comments.Dtos;
+using MyBlog.Domain.Entities.ReadEntity;
 
 namespace MyBlog.Persistence.EntityConfigurations.Read;
-public class CommentEntityConfiguration : IEntityTypeConfiguration<GetCommentDto>
+public class CommentEntityConfiguration : IEntityTypeConfiguration<CommentDto>
 {
-    public void Configure(EntityTypeBuilder<GetCommentDto> builder)
+    public void Configure(EntityTypeBuilder<CommentDto> builder)
     {
         builder.ToTable("comments");
 

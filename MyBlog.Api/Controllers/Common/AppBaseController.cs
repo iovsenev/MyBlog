@@ -10,7 +10,7 @@ public abstract class AppBaseController : ControllerBase
 {
     protected new IActionResult Ok(object? result = null)
     {
-        var envelope = RequestFormat.Ok(result);
+        var envelope = ResponseFormat.Ok(result);
 
         return base.Ok(envelope);
     }
@@ -21,7 +21,7 @@ public abstract class AppBaseController : ControllerBase
 
         errors.Add(error.ErrorCode, new[] { error.Message});
 
-        var envelope = RequestFormat.Error(errors);
+        var envelope = ResponseFormat.Error(errors);
 
         return base.BadRequest(envelope);
     }

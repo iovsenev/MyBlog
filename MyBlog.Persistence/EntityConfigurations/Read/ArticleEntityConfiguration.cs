@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using MyBlog.Application.Articles.Dtos;
+using MyBlog.Domain.Entities.ReadEntity;
 
 namespace MyBlog.Persistence.EntityConfigurations.Read;
-public class ArticleEntityConfiguration : IEntityTypeConfiguration<GetArticleDto>
+public class ArticleEntityConfiguration : IEntityTypeConfiguration<ArticleDto>
 {
-    public void Configure(EntityTypeBuilder<GetArticleDto> builder)
+    public void Configure(EntityTypeBuilder<ArticleDto> builder)
     {
         builder.ToTable("articles");
 

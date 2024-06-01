@@ -1,11 +1,11 @@
 ﻿using MyBlog.Api.Models.Articles;
-using MyBlog.Application.Articles.Dtos;
+using MyBlog.Domain.Entities.ReadEntity;
 
 namespace MyBlog.Api.Mappings;
 
 public static class Articles
 {
-    public static ArticleViewModelForList ToArticleListViewModel(this GetArticleDto article)
+    public static ArticleViewModelForList ToArticleListViewModel(this ArticleDto article)
     {
         return new ArticleViewModelForList(
             article.Id,

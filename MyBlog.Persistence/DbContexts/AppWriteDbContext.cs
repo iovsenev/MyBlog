@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using MyBlog.Application.Interfaces.DataAccess;
-using MyBlog.Domain.Entities;
+using MyBlog.Domain.Entities.WriteEntity;
 using MyBlog.Persistence.EntityConfigurations.Write;
 
 namespace MyBlog.Persistence.DbContexts;

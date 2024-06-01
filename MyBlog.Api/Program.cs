@@ -1,10 +1,14 @@
+using FluentValidation;
 using MyBlog.Application;
 using MyBlog.Persistence;
+using MyBlog.Persistence.Repositories.Articles.Create;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddApplication();
 builder.Services.AddPersistence();
+
+builder.Services.AddValidatorsFromAssembly(typeof(CreateArticleRequestValidator).Assembly);
 
 builder.Services.AddControllers();
 

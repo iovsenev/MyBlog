@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyBlog.Api.Controllers.Common;
 using MyBlog.Api.Mappings;
-using MyBlog.Api.Models.Users;
 using MyBlog.Application.Interfaces.Services;
-using MyBlog.Application.Users.Commands.Create;
-using MyBlog.Application.Users.DTOS;
-using MyBlog.Application.Users.Queries.GetAllUsers;
-using MyBlog.Application.Users.Queries.GetUserById;
+using MyBlog.Application.Services.Users.Create;
+using MyBlog.Domain.Entities.ReadEntity;
+using MyBlog.Persistence.Queries.Users.GetAllUsers;
+using MyBlog.Persistence.Queries.Users.GetUserById;
 
 namespace MyBlog.Api.Controllers;
 

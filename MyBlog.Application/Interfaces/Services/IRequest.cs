@@ -1,6 +1,5 @@
-﻿namespace MyBlog.Application.Interfaces.Services
+﻿namespace MyBlog.Application.Interfaces.Services;
+
+public interface IRequest<TResponse>
 {
-    public interface IRequest<TResponse>
-    {
-    }
 }

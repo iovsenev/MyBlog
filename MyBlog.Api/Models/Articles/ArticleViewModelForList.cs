@@ -1,7 +1,4 @@
-﻿using MyBlog.Application.Comments.Dtos;
-using MyBlog.Application.Users.DTOS;
-using MyBlog.Domain.Entities;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using MyBlog.Domain.Entities.WriteEntity;
 
 namespace MyBlog.Api.Models.Articles;
 
