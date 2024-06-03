@@ -3,13 +3,8 @@ using MyBlog.Domain.Common;
 
 namespace MyBlog.Application.Interfaces.Services;
 
-public interface IQueryHandler<TRequest, TResponse> : IQueryHandler<TRequest>
+public interface IQueryHandler<TRequest, TResponse> 
 {
-    Task<Result<ICollection<TResponse>, Error>> Handle(TRequest? request, CancellationToken ct);
-}
-
-public interface IQueryHandler<TResponse>
-{
-    Task<Result<ICollection<TResponse>, Error>> Handle(CancellationToken ct);
+    Task<Result<ICollection<TResponse>, Error>> Handle(TRequest request, CancellationToken ct);
 }
 

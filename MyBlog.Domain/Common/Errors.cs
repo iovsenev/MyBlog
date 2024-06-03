@@ -20,12 +20,12 @@ public static class Errors
             return new Error("obj.invalid", $"Object{message} has invalid value");
         }
 
-        public static Error AlreadyExists(object? obj = null)
+        public static Error AlreadyExists(string? message = null)
         {
-            var message = obj == null
-                ? ""
-                : $": {nameof(obj)}";
-            return new Error("obj.already.exist", $"Object{message} already exist");
+            message = message == null
+                ? "Object already exist"
+                : $": {message}";
+            return new Error("obj.already.exist", $"{message}");
         }
 
         public static Error AddingFalling(string? name = null)
@@ -33,7 +33,7 @@ public static class Errors
             var message = name == null
                 ? ""
                 : $": {name}";
-            return new Error("obj.already.exist", $"Object{message} already exist");
+            return new Error("obj.already.exist", $"Object {message} is not added");
         }
     }
 }

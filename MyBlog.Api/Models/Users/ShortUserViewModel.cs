@@ -1,6 +1,6 @@
-﻿namespace MyBlog.Api.Models.Users;
+﻿namespace MyBlog.Persistence.Repositories.Users.Queries;
 
-public record UserViewModelForList(
+public record ShortUserViewModel(
     Guid Id,
     string UserName,
     string FullName,

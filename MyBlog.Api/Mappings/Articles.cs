@@ -5,9 +5,9 @@ namespace MyBlog.Api.Mappings;
 
 public static class Articles
 {
-    public static ArticleViewModelForList ToArticleListViewModel(this ArticleDto article)
+    public static ArticleShortViewModel ToArticleListViewModel(this ArticleDto article)
     {
-        return new ArticleViewModelForList(
+        return new ArticleShortViewModel(
             article.Id,
             article.Title,
             article.Description,

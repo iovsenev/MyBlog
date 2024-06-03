@@ -7,7 +7,7 @@ using MyBlog.Persistence.EntityConfigurations.Write;
 
 namespace MyBlog.Persistence.DbContexts;
 
-public class AppWriteDbContext : DbContext, IWriteDbContext
+public class AppWriteDbContext : DbContext
 {
     private readonly IConfiguration _configuration;
 

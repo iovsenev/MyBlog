@@ -25,4 +25,11 @@ public class EmailObject
             return Errors.General.InValid(input);
         return new EmailObject(input);
     }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj is EmailObject)
+            return Email == ((EmailObject)obj).Email;
+        return false;
+    }
 }

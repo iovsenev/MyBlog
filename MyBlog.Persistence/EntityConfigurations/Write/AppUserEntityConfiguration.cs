@@ -13,6 +13,8 @@ public class AppUserEntityConfiguration : IEntityTypeConfiguration<AppUser>
 
         builder.HasIndex(u => u.UserName)
             .IsUnique();
+        builder.HasIndex(u => u.Email)
+            .IsUnique();
 
         builder.Property(u => u.Id)
             .HasColumnName("id");
@@ -22,6 +24,9 @@ public class AppUserEntityConfiguration : IEntityTypeConfiguration<AppUser>
         builder.Property(u => u.PasswordHash)
             .IsRequired()
             .HasColumnName("user_password_hash");
+        builder.Property(p => p.Email)
+                    .HasColumnName("email")
+                    .IsRequired();
         builder.Property(u => u.RegistrationDate)
             .IsRequired()
             .HasColumnName("user_registration_date;");
@@ -47,8 +52,6 @@ public class AppUserEntityConfiguration : IEntityTypeConfiguration<AppUser>
                     .HasDefaultValue("+79998887766")
                     .HasColumnName("phone_number"));
 
-        builder.ComplexProperty(u => u.Email, p => p.Property(p => p.Email)
-                    .HasColumnName("email"));
 
         builder.HasMany(u => u.Articles)
             .WithOne(a => a.Author)

@@ -7,7 +7,7 @@ using MyBlog.Persistence.EntityConfigurations.Read;
 
 namespace MyBlog.Persistence.DbContexts;
 
-public class AppReadDbContext : DbContext, IReadDbContext
+public class AppReadDbContext : DbContext
 {
     private readonly IConfiguration _configuration;
 
@@ -22,9 +22,8 @@ public class AppReadDbContext : DbContext, IReadDbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(ArticleEntityConfiguration).Assembly, 
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(UserEntityConfiguration).Assembly, 
             type => type.FullName.Contains("EntityConfigurations.Read"));
-        base.OnModelCreating(modelBuilder);
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -32,5 +31,6 @@ public class AppReadDbContext : DbContext, IReadDbContext
         optionsBuilder.UseNpgsql(_configuration.GetConnectionString("DatabaseAccess"));
         optionsBuilder.UseSnakeCaseNamingConvention();
         optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information);
+        optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
     }
 }

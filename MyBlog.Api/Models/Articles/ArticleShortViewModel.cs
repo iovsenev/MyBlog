@@ -2,7 +2,7 @@
 
 namespace MyBlog.Api.Models.Articles;
 
-public record ArticleViewModelForList(
+public record ArticleShortViewModel(
     Guid id,
     string Title,
     string Description,

@@ -19,13 +19,6 @@ public class CreateUserHandler : ICommandHandler<CreateUserRequest>
     {
         var passwordHash = BC.BCrypt.HashPassword(request.password);
 
-        //var entity = await _repository.Users
-        //    .FirstOrDefaultAsync(u => u.UserName == request.userName ||
-        //                u.Email.Email == request.emailInput);
-
-        //if (entity is not null)
-        //    return Errors.General.AlreadyExists();
-
         var createUserResult = AppUser.Create(
             request.userName,
             passwordHash,

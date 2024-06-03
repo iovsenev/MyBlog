@@ -15,7 +15,7 @@ public class AppUser
     private AppUser(
         string userName,
         string passwordHash,
-        EmailObject email,
+        string email,
         DateTimeOffset registrationDate)
     {
         UserName = userName;
@@ -29,10 +29,9 @@ public class AppUser
     public string UserName { get; private set; }
     [Required]
     public string PasswordHash { get; private set; }
-    [Required]
-    public EmailObject Email { get; private set; }
+    public string Email { get; private set; }
 
-    public Phone Phone { get; private set; } = Phone.Create("+79998887766").Value;
+    public Phone Phone { get; private set; } 
     public string FirstName { get; private set; } = string.Empty;
     public string LastName { get; private set; } = string.Empty;
     public string SecondName { get; private set; } = string.Empty;
@@ -68,7 +67,7 @@ public class AppUser
         return new AppUser(
             userName,
             passwordHash,
-            emailResult.Value,
+            emailResult.Value.Email,
             DateTimeOffset.UtcNow);
     }
 }

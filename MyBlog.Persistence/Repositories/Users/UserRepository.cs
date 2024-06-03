@@ -1,4 +1,5 @@
 ﻿using CSharpFunctionalExtensions;
+using Microsoft.EntityFrameworkCore;
 using MyBlog.Application.Interfaces.DataAccess;
 using MyBlog.Domain.Common;
 using MyBlog.Domain.Entities.WriteEntity;
@@ -16,6 +17,12 @@ public class UserRepository : IUserRepository
 
     public async Task<Result<Guid, Error>> Create(AppUser user, CancellationToken ct)
     {
+        var entity = await _context.Users.FirstOrDefaultAsync(u =>
+            u.UserName == user.UserName || u.Email.Equals(user.Email));
+
+        if (entity is not null)
+            return Errors.General.AlreadyExists($"User with user name or email already exist.");
+
         await _context.Users.AddAsync(user, ct);
         var result = await _context.SaveChangesAsync(ct);
 
