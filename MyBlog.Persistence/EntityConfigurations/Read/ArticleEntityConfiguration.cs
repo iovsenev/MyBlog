@@ -14,22 +14,17 @@ public class ArticleEntityConfiguration : IEntityTypeConfiguration<ArticleDto>
         builder.Property(a => a.Id)
             .HasColumnName("id");
         builder.Property(a => a.Title)
-            .IsRequired()
             .HasColumnName("title");
         builder.Property(a => a.Description)
-            .IsRequired()
             .HasColumnName("description");
         builder.Property(a => a.Text)
-            .HasColumnName("text")
-            .IsRequired();
+            .HasColumnName("text");
         builder.Property(a => a.AddedDate)
             .HasColumnName("added_date");
         builder.Property(a => a.Likes)
-            .HasColumnName("likes")
-            .HasDefaultValue(0);
+            .HasColumnName("likes");
         builder.Property(a => a.Dislikes)
-            .HasColumnName("dislikes")
-            .HasDefaultValue(0);
+            .HasColumnName("dislikes");
 
         builder.HasMany(a => a.Comments)
             .WithOne();

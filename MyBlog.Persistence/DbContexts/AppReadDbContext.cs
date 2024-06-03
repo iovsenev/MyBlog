@@ -16,9 +16,9 @@ public class AppReadDbContext : DbContext
         _configuration = configuration;
     }
 
-    public DbSet<ArticleDto> Articles { get; set; }
+    public DbSet<ArticleDto> Articles => Set<ArticleDto>();
 
-    public DbSet<AppUserDto> Users { get; set; }
+    public DbSet<AppUserDto> Users => Set<AppUserDto>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

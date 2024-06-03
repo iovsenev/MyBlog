@@ -39,11 +39,11 @@ public class AppUser
     public DateTimeOffset RegistrationDate { get; private set; }
 
 
-    private IReadOnlyList<Article> _articles = [];
+    private readonly List<Article> _articles = [];
     public IReadOnlyList<Article> Articles => _articles;
 
 
-    private IReadOnlyList<Comment> _comments = [];
+    private readonly List<Comment> _comments = [];
     public IReadOnlyList<Comment> Comments => _comments;
 
 
@@ -69,5 +69,10 @@ public class AppUser
             passwordHash,
             emailResult.Value.Email,
             DateTimeOffset.UtcNow);
+    }
+
+    public void PublishArticle(Article article)
+    {
+        _articles.Add(article);
     }
 }

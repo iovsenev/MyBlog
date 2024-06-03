@@ -1,4 +1,5 @@
 using FluentValidation;
+using MyBlog.Api.Middlewares;
 using MyBlog.Application;
 using MyBlog.Persistence;
 using MyBlog.Persistence.Repositories.Articles.Create;
@@ -23,6 +24,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ExceptionHandler>();
 
 app.UseHttpsRedirection();
 
