@@ -36,8 +36,13 @@ public class UserRepository : IUserRepository
         var result = await _context.Users.FindAsync(id, ct);
 
         if (result is null)
-            return Errors.General.NotFound($"User with id: {id}");
+            return Errors.General.NotFound($"User with id: {id} not found.");
 
         return result;
+    }
+
+    public async Task<Result<Guid, Error>> Save(AppUser user, CancellationToken ct)
+    {
+        throw new NotImplementedException();
     }
 }

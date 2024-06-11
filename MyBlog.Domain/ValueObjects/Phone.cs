@@ -14,7 +14,7 @@ public class Phone
     {
         PhoneNumber = phoneNumber;
     }
-
+    public Guid Id { get;}
     public string PhoneNumber { get;} = string.Empty;
 
     public static Result<Phone, Error> Create(string input)

@@ -4,12 +4,12 @@ public static class Errors
 {
     public static class General
     {
-        public static Error NotFound(string? name = null)
+        public static Error NotFound(string? message = null)
         {
-            var message = name == null
-                ? ""
-                : $": {name}";
-            return new Error("obj.not.found", $"This {message} not found");
+            message = message == null
+                ? "Entity not found."
+                : message;
+            return new Error("obj.not.found", message);
         }
 
         public static Error InValid(object? obj = null)
