@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MyBlog.Domain.Entities.ReadEntity;
 
 namespace MyBlog.Persistence.EntityConfigurations.Read;
-public class UserEntityConfiguration : IEntityTypeConfiguration<AppUserDto>
+public class UserReadEntityConfiguration : IEntityTypeConfiguration<AppUserDto>
 {
     public void Configure(EntityTypeBuilder<AppUserDto> builder)
     {
@@ -33,7 +33,8 @@ public class UserEntityConfiguration : IEntityTypeConfiguration<AppUserDto>
         builder.Property(u => u.BirthDate)
             .HasColumnName("user_birth_date;");
 
-        builder.Property(u => u.Phone)
+        builder.Property(u => u.PhoneNumber)
+            .HasColumnType("text")
             .HasColumnName("phone_number");
 
         builder.HasMany(u => u.Articles)

@@ -20,7 +20,7 @@ public class AppWriteDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ArticleEntityConfiguration).Assembly,
-            type => type.FullName.Contains("EntityConfigurations.Write")); ;
+            type => type.FullName.Contains("EntityConfigurations.Write"));
         base.OnModelCreating(modelBuilder);
     }
 

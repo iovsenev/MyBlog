@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace MyBlog.Domain.ValueObjects;
 
-public class Phone
+public record Phone
 {
     private const string regexValidationPhone = @"^((8 |\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$";
 

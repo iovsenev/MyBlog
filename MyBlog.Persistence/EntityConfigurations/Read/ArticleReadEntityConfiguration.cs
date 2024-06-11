@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MyBlog.Domain.Entities.ReadEntity;
 
 namespace MyBlog.Persistence.EntityConfigurations.Read;
-public class ArticleEntityConfiguration : IEntityTypeConfiguration<ArticleDto>
+public class ArticleReadEntityConfiguration : IEntityTypeConfiguration<ArticleDto>
 {
     public void Configure(EntityTypeBuilder<ArticleDto> builder)
     {

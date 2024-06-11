@@ -4,7 +4,8 @@ using MyBlog.Api.Mappings;
 using MyBlog.Application.Interfaces.Services;
 using MyBlog.Application.Services.Users.Create;
 using MyBlog.Domain.Entities.ReadEntity;
-using MyBlog.Persistence.Repositories.Users.Queries;
+using MyBlog.Domain.Entities.WriteEntity;
+using MyBlog.Persistence.Repositories.Users.Queries.GetAllUserByPage;
 
 namespace MyBlog.Api.Controllers;
 
@@ -13,7 +14,7 @@ public class UserController : AppBaseController
     [HttpGet]
     public async Task<IActionResult> GetAll(
         [FromServices]
-        IQueryHandler<GetAllUsersByPageRequest, AppUserDto> handler,
+        IQueryHandler<GetAllUsersByPageRequest, ICollection<AppUserDto>> handler,
         [FromQuery]
         GetAllUsersByPageRequest request,
         CancellationToken token = default)
@@ -42,23 +43,21 @@ public class UserController : AppBaseController
         return result.IsSuccess ? Ok() : BadRequest(result.Error);
     }
 
-    //[HttpGet("/{id}")]
-    
-    //public async Task<IActionResult> Get(
-    //    [FromServices]
-    //    IQueryHandler<GetUserByIdRequest, AppUserDto> handler,
-    //    [FromQuery]
-    //    Guid id,
-    //    CancellationToken token = default)
-    //{
-    //    var request = new GetUserByIdRequest {Id = id};
-    //    var user = await handler.Handle(request, token);
-           
-    //    if (user.IsFailure)
-    //        return BadRequest(user.Error);
+    [HttpGet("/{id}")]
 
-    //    var userVM = user.Value.ToUserSingleViewModel();
+    public async Task<IActionResult> Get(
+        [FromServices]
+        IQueryHandler<Guid, AppUserDto> handler,
+        Guid id,
+        CancellationToken token = default)
+    {
+        var user = await handler.Handle(id, token);
 
-    //    return Ok(userVM);
-    //}
+        if (user.IsFailure)
+            return BadRequest(user.Error);
+
+        //var userVM = user.Value.ToUserSingleViewModel();
+
+        return Ok(user.Value);
+    }
 }

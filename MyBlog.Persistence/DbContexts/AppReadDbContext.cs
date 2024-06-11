@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using MyBlog.Application.Interfaces.DataAccess;
 using MyBlog.Domain.Entities.ReadEntity;
 using MyBlog.Persistence.EntityConfigurations.Read;
 
@@ -20,10 +19,13 @@ public class AppReadDbContext : DbContext
 
     public DbSet<AppUserDto> Users => Set<AppUserDto>();
 
+    public DbSet<CommentDto> Comments => Set<CommentDto>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(UserEntityConfiguration).Assembly, 
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(ArticleReadEntityConfiguration).Assembly,
             type => type.FullName.Contains("EntityConfigurations.Read"));
+        base.OnModelCreating(modelBuilder);
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

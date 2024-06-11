@@ -7,9 +7,6 @@ namespace MyBlog.Domain.Entities.WriteEntity;
 
 public class AppUser
 {
-    private static readonly DateTime minDate = new DateTime(1920, 1, 1);
-    private static readonly DateTime maxDate = DateTime.UtcNow;
-
     private AppUser() { }
 
     private AppUser(
@@ -31,7 +28,7 @@ public class AppUser
     public string PasswordHash { get; private set; }
     public string Email { get; private set; }
 
-    public Phone Phone { get; private set; } 
+    public string Phone { get; private set; } 
     public string FirstName { get; private set; } = string.Empty;
     public string LastName { get; private set; } = string.Empty;
     public string SecondName { get; private set; } = string.Empty;

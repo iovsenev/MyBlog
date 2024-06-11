@@ -5,8 +5,8 @@ using MyBlog.Domain.Common;
 using MyBlog.Domain.Entities.ReadEntity;
 using MyBlog.Persistence.DbContexts;
 
-namespace MyBlog.Persistence.Repositories.Users.Queries;
-public class GetAllUsersByPageQuery : IQueryHandler<GetAllUsersByPageRequest, AppUserDto>
+namespace MyBlog.Persistence.Repositories.Users.Queries.GetAllUserByPage;
+public class GetAllUsersByPageQuery : IQueryHandler<GetAllUsersByPageRequest, ICollection<AppUserDto>>
 {
     private readonly AppReadDbContext _context;
 
@@ -18,9 +18,7 @@ public class GetAllUsersByPageQuery : IQueryHandler<GetAllUsersByPageRequest, Ap
 
     public async Task<Result<ICollection<AppUserDto>, Error>> Handle(GetAllUsersByPageRequest request, CancellationToken ct)
     {
-        var users = _context.Users
-            .Include(u => u.Articles)
-            .Include(u => u.Comments);
+        var users = _context.Users;
 
         var countUsers = users.Count();
 
