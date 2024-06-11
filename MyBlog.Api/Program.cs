@@ -4,6 +4,7 @@ using MyBlog.Persistence;
 using MyBlog.Persistence.Repositories.Articles.Create;
 
 var builder = WebApplication.CreateBuilder(args);
+var configuration = builder.Configuration;
 
 builder.Services.AddApplication();
 builder.Services.AddPersistence();
