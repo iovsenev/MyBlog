@@ -47,8 +47,11 @@ public class AppUserEntityConfiguration : IEntityTypeConfiguration<AppUser>
             .HasColumnName("user_birth_date;")
             .HasDefaultValue(DateTimeOffset.MinValue);
 
-        builder.Property(u => u.Phone)
+        builder.ComplexProperty(u => u.Phone, p =>
+        {
+            p.Property(p => p.PhoneNumber)
                     .HasColumnName("phone_number");
+        });
 
 
         builder.HasMany(u => u.Articles)

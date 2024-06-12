@@ -3,6 +3,7 @@ using MyBlog.Application.Interfaces.DataAccess;
 using MyBlog.Application.Interfaces.Services;
 using MyBlog.Domain.Entities.ReadEntity;
 using MyBlog.Persistence.DbContexts;
+using MyBlog.Persistence.Repositories.Articles.Queries.GetAllArticle;
 using MyBlog.Persistence.Repositories.Users;
 using MyBlog.Persistence.Repositories.Users.Queries.GetAllUserByPage;
 using MyBlog.Persistence.Repositories.Users.Queries.GetUserById;
@@ -14,7 +15,7 @@ public static class DependencyInjection
     public static IServiceCollection AddPersistence(this IServiceCollection services)
     {
         services.AddSingleton<AppWriteDbContext>();
-        services.AddSingleton<AppReadDbContext>();
+        services.AddScoped<AppReadDbContext>();
 
         services.AddScoped<IUserRepository, UserRepository>();
 
@@ -22,6 +23,7 @@ public static class DependencyInjection
 
         services.AddScoped<IQueryHandler<GetAllUsersByPageRequest, ICollection<AppUserDto>>, GetAllUsersByPageQuery>();
         services.AddScoped<IQueryHandler<Guid, AppUserDto>, GetUserByIdQuery>();
+        services.AddScoped<IQueryHandler<GetArticleRequest, ICollection<ArticleDto>>, GetAllArticleQuery>();
 
         return services;
     }

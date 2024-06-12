@@ -15,17 +15,14 @@ public class AppReadDbContext : DbContext
         _configuration = configuration;
     }
 
-    public DbSet<ArticleDto> Articles => Set<ArticleDto>();
-
-    public DbSet<AppUserDto> Users => Set<AppUserDto>();
-
-    public DbSet<CommentDto> Comments => Set<CommentDto>();
+    public DbSet<ArticleDto> ArticleDTOs => Set<ArticleDto>();
+    public DbSet<AppUserDto> UserDTOs => Set<AppUserDto>();
+    public DbSet<CommentDto> CommentDTOs => Set<CommentDto>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ArticleReadEntityConfiguration).Assembly,
             type => type.FullName.Contains("EntityConfigurations.Read"));
-        base.OnModelCreating(modelBuilder);
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

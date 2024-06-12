@@ -28,7 +28,7 @@ public class AppUser
     public string PasswordHash { get; private set; }
     public string Email { get; private set; }
 
-    public string Phone { get; private set; } 
+    public PhoneValue Phone { get; private set; } = PhoneValue.Create("79998887766").Value;
     public string FirstName { get; private set; } = string.Empty;
     public string LastName { get; private set; } = string.Empty;
     public string SecondName { get; private set; } = string.Empty;

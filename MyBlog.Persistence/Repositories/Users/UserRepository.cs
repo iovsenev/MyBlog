@@ -43,6 +43,10 @@ public class UserRepository : IUserRepository
 
     public async Task<Result<Guid, Error>> Save(AppUser user, CancellationToken ct)
     {
-        throw new NotImplementedException();
+        var result = await _context.SaveChangesAsync(ct);
+        if (result == 0)
+            return Errors.General.SaveFalling("Do not save changing for User");
+
+        return user.Id;
     }
 }

@@ -33,9 +33,9 @@ public class UserReadEntityConfiguration : IEntityTypeConfiguration<AppUserDto>
         builder.Property(u => u.BirthDate)
             .HasColumnName("user_birth_date;");
 
-        builder.Property(u => u.PhoneNumber)
-            .HasColumnType("text")
-            .HasColumnName("phone_number");
+        builder.Property(u => u.Phone)
+            .HasColumnName("phone_number")
+            .HasDefaultValue(79998887766);
 
         builder.HasMany(u => u.Articles)
             .WithOne(a => a.Author);

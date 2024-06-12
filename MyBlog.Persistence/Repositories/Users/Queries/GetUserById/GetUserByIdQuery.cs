@@ -17,7 +17,7 @@ public class GetUserByIdQuery : IQueryHandler<Guid, AppUserDto>
 
     public async Task<Result<AppUserDto, Error>> Handle(Guid request, CancellationToken ct)
     {
-        var user = await _context.Users
+        var user = await _context.UserDTOs
             .Include(user => user.Comments)
             .Include(user => user.Articles)
             .FirstOrDefaultAsync(user => user.Id == request);

@@ -24,7 +24,6 @@ public class CreateUserHandler : ICommandHandler<CreateUserRequest>
             passwordHash,
             request.emailInput);
 
-
         if (createUserResult.IsFailure)
             return createUserResult.Error;
 

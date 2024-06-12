@@ -1,8 +1,8 @@
 using FluentValidation;
 using MyBlog.Api.Middlewares;
 using MyBlog.Application;
+using MyBlog.Application.Services.Articles;
 using MyBlog.Persistence;
-using MyBlog.Persistence.Repositories.Articles.Create;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;

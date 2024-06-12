@@ -18,7 +18,7 @@ public class GetAllUsersByPageQuery : IQueryHandler<GetAllUsersByPageRequest, IC
 
     public async Task<Result<ICollection<AppUserDto>, Error>> Handle(GetAllUsersByPageRequest request, CancellationToken ct)
     {
-        var users = _context.Users;
+        var users = _context.UserDTOs;
 
         var countUsers = users.Count();
 
