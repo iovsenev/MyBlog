@@ -2,37 +2,38 @@
 using MyBlog.Domain.ValueObjects;
 using System.ComponentModel.DataAnnotations;
 using MyBlog.Domain.Common;
+using System.ComponentModel;
 
 namespace MyBlog.Domain.Entities.WriteEntity;
 
 public class AppUser
 {
+    private const PhoneNumber _defaultPhone = PhoneNumber.Create("79998887766").Value;
     private AppUser() { }
 
     private AppUser(
         string userName,
         string passwordHash,
         string email,
-        DateTimeOffset registrationDate)
+        DateTimeOffset registrationDate,
+        PhoneNumber number )
     {
         UserName = userName;
         PasswordHash = passwordHash;
         Email = email;
         RegistrationDate = registrationDate;
+        Phone = number;
     }
 
     public Guid Id { get; private set; }
-    [Required]
     public string UserName { get; private set; }
-    [Required]
     public string PasswordHash { get; private set; }
     public string Email { get; private set; }
-
-    public PhoneValue Phone { get; private set; } = PhoneValue.Create("79998887766").Value;
+    public PhoneNumber Phone { get; private set; }
     public string FirstName { get; private set; } = string.Empty;
     public string LastName { get; private set; } = string.Empty;
     public string SecondName { get; private set; } = string.Empty;
-    public DateTimeOffset BirthDate { get; private set; } = DateTimeOffset.MinValue;
+    public DateTimeOffset BirthDate { get; private set; } 
     public DateTimeOffset RegistrationDate { get; private set; }
 
 
@@ -65,7 +66,8 @@ public class AppUser
             userName,
             passwordHash,
             emailResult.Value.Email,
-            DateTimeOffset.UtcNow);
+            DateTimeOffset.UtcNow,
+            _defaultPhone);
     }
 
     public void PublishArticle(Article article)

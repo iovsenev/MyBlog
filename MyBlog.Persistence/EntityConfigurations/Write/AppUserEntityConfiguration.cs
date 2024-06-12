@@ -23,34 +23,31 @@ public class AppUserEntityConfiguration : IEntityTypeConfiguration<AppUser>
             .HasColumnName("user_name");
         builder.Property(u => u.PasswordHash)
             .IsRequired()
-            .HasColumnName("user_password_hash");
+            .HasColumnName("password_hash");
         builder.Property(p => p.Email)
-                    .HasColumnName("email")
-                    .IsRequired();
+            .HasColumnName("email")
+            .IsRequired();
         builder.Property(u => u.RegistrationDate)
             .IsRequired()
-            .HasColumnName("user_registration_date;");
+            .HasColumnName("registration_date;");
         builder.Property(u => u.FirstName)
             .HasDefaultValue("")
             .IsRequired()
-            .HasColumnName("user_first_name");
+            .HasColumnName("first_name");
         builder.Property(u => u.SecondName)
             .HasDefaultValue("")
             .IsRequired()
-            .HasColumnName("user_second_name;");
+            .HasColumnName("second_name;");
         builder.Property(u => u.LastName)
             .HasDefaultValue("")
             .IsRequired()
-            .HasColumnName("user_last_name;");
+            .HasColumnName("last_name;");
         builder.Property(u => u.BirthDate)
-            .IsRequired()
-            .HasColumnName("user_birth_date;")
-            .HasDefaultValue(DateTimeOffset.MinValue);
+            .HasColumnName("birth_date;");
 
         builder.ComplexProperty(u => u.Phone, p =>
         {
-            p.Property(p => p.PhoneNumber)
-                    .HasColumnName("phone_number");
+            p.Property(p => p.Phone).HasColumnName("phone_number");
         });
 
 

@@ -1,4 +1,4 @@
-﻿namespace MyBlog.Persistence.Repositories.Users.Queries;
+﻿namespace MyBlog.Api.Models.Users;
 
 public record ShortUserViewModel(
     Guid Id,

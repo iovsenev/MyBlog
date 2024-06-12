@@ -8,11 +8,8 @@ namespace MyBlog.Persistence.DbContexts;
 
 public class AppReadDbContext : DbContext
 {
-    private readonly IConfiguration _configuration;
-
-    public AppReadDbContext(IConfiguration configuration)
+    public AppReadDbContext(DbContextOptions<AppReadDbContext> option) : base(option)
     {
-        _configuration = configuration;
     }
 
     public DbSet<ArticleDto> ArticleDTOs => Set<ArticleDto>();
@@ -27,7 +24,6 @@ public class AppReadDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseNpgsql(_configuration.GetConnectionString("DatabaseAccess"));
         optionsBuilder.UseSnakeCaseNamingConvention();
         optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information);
         optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);

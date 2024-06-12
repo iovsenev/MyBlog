@@ -1,5 +1,5 @@
-﻿using MyBlog.Domain.Entities.ReadEntity;
-using MyBlog.Persistence.Repositories.Users.Queries;
+﻿using MyBlog.Api.Models.Users;
+using MyBlog.Domain.Entities.ReadEntity;
 
 namespace MyBlog.Api.Mappings;
 

@@ -8,7 +8,6 @@ public class EmailObject
 {
     private const string Pattern = "(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$)";
 
-    private EmailObject() { }
     private EmailObject(string input)
     {
         Email = input;

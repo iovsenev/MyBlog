@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 
 builder.Services.AddApplication();
-builder.Services.AddPersistence();
+builder.Services.AddPersistence(builder.Configuration);
 
 builder.Services.AddValidatorsFromAssembly(typeof(CreateArticleRequestValidator).Assembly);
 

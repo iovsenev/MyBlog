@@ -4,24 +4,25 @@ using System.Text.RegularExpressions;
 
 namespace MyBlog.Domain.ValueObjects;
 
-public class PhoneValue
+public record PhoneNumber
 {
     private const string regexValidationPhone = @"^((8 |\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$";
 
-    private PhoneValue(string phoneNumber)
+    private PhoneNumber(string phoneNumber)
     {
-        PhoneNumber = phoneNumber;
+        Phone = phoneNumber;
     }
 
-    public string PhoneNumber { get; } = string.Empty;
+    public string Phone { get; }
 
-    public static Result<PhoneValue, Error> Create(string input)
+    public static Result<PhoneNumber, Error> Create(string input)
     {
         if(string.IsNullOrEmpty(input.Trim()))
             return Errors.General.InValid(input);
+
         if(!Regex.IsMatch(input, regexValidationPhone))
             return Errors.General.InValid(input);
-        return new PhoneValue(input);
 
+        return new PhoneNumber(input);
     }
 }
